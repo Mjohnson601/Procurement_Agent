@@ -3,836 +3,631 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>C Spire Procurement Assistant</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<title>C Spire Procurement Guide</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --blue: #00c0f3;
-    --steel: #0f3d58;
-    --onyx: #131e29;
-    --orange: #FF6720;
-    --nano: #EDF1F7;
-    --cool-grey: #85A7CA;
-    --glow: #B9DEF3;
-    --white: #ffffff;
-    --radius: 20px;
-    --radius-sm: 12px;
+    --primary: #006B8F;
+    --primary-light: #008DB8;
+    --cyan: #00B4D8;
+    --cyan-pale: #E8F8FC;
+    --cyan-mid: #B3E8F4;
+    --teal: #0D9488;
+    --dark: #0C1825;
+    --text: #1E2D3D;
+    --text-mid: #4A5E6D;
+    --text-light: #7A8FA0;
+    --border: #E0E9EF;
+    --bg: #F4F8FB;
+    --white: #FFFFFF;
+    --green: #059669;
+    --amber: #D97706;
+    --red: #DC2626;
+    --purple: #7C3AED;
+    --font: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; font-family: var(--font); background: var(--bg); color: var(--text); }
 
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    background: var(--onyx);
-    color: var(--white);
-    min-height: 100vh;
-    overflow-x: hidden;
+  /* TOP HEADER */
+  .header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
   }
 
-  /* HERO SECTION */
-  .hero {
-    position: relative;
-    min-height: 100vh;
+  .header-left { display: flex; align-items: center; gap: 12px; }
+
+  .cspire-logo {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-mark {
+    width: 28px; height: 28px;
+    background: var(--cyan);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-mark svg { width: 16px; height: 16px; }
+
+  .logo-name { font-size: 16px; font-weight: 700; color: var(--dark); letter-spacing: -0.02em; }
+  .header-divider { width: 1px; height: 20px; background: var(--border); }
+  .header-title { font-size: 14px; font-weight: 500; color: var(--text-mid); }
+
+  .header-right { display: flex; align-items: center; gap: 16px; }
+
+  .policy-badge {
+    font-size: 11px;
+    background: var(--cyan-pale);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    border: 1px solid var(--cyan-mid);
+  }
+
+  /* LAYOUT */
+  .layout {
+    margin-top: 60px;
+    min-height: calc(100vh - 60px);
     display: flex;
     flex-direction: column;
+  }
+
+  /* WELCOME STATE */
+  .welcome-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+    max-width: 780px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .welcome-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 12px;
+  }
+
+  .welcome-h { font-size: 30px; font-weight: 700; color: var(--dark); text-align: center; line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .welcome-sub { font-size: 15px; color: var(--text-mid); text-align: center; line-height: 1.6; max-width: 520px; margin-bottom: 40px; }
+
+  /* TOPIC CARDS */
+  .topics-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); margin-bottom: 14px; align-self: flex-start; }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .topic-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+    position: relative;
     overflow: hidden;
   }
 
-  /* Brand-compliant gradient background - linear blue to steel */
-  .hero-bg {
+  .topic-card::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--onyx) 0%, var(--steel) 50%, #0a2d44 100%);
-    z-index: 0;
-  }
-
-  /* Radial glow orb - C Spire blue only */
-  .hero-orb {
-    position: absolute;
-    top: -20%;
-    right: -15%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(0,192,243,0.18) 0%, transparent 65%);
-    z-index: 1;
-    animation: floatOrb 8s ease-in-out infinite;
-  }
-
-  .hero-orb2 {
-    position: absolute;
-    bottom: 10%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(15,61,88,0.6) 0%, transparent 65%);
-    z-index: 1;
-  }
-
-  @keyframes floatOrb {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-20px, 20px) scale(1.05); }
-  }
-
-  /* C Burst subtle background pattern */
-  .hero-pattern {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='6' fill='%2300c0f3'/%3E%3Crect x='37' y='4' width='6' height='14' rx='3' fill='%2300c0f3'/%3E%3Crect x='37' y='62' width='6' height='14' rx='3' fill='%2300c0f3'/%3E%3Crect x='4' y='37' width='14' height='6' rx='3' fill='%2300c0f3'/%3E%3Crect x='62' y='37' width='14' height='6' rx='3' fill='%2300c0f3'/%3E%3C/svg%3E");
-    background-size: 80px 80px;
-  }
-
-  /* HEADER */
-  .header {
-    position: relative;
-    z-index: 10;
-    padding: 20px 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .logo-svg { width: 40px; height: 40px; }
-
-  .brand-name {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    color: var(--white);
-    letter-spacing: -0.5px;
-  }
-
-  .brand-name span { color: var(--blue); }
-
-  .header-pill {
-    background: rgba(0,192,243,0.12);
-    border: 1px solid rgba(0,192,243,0.3);
-    color: var(--glow);
-    font-family: 'Nunito', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 30px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  /* HERO CONTENT */
-  .hero-content {
-    position: relative;
-    z-index: 5;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 48px 32px;
-    text-align: center;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Nunito', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--blue);
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    animation: fadeUp 0.5s ease 0.1s both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-headline {
-    font-family: 'Nunito', sans-serif;
-    font-size: 48px;
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--white);
-    letter-spacing: -1px;
-    margin-bottom: 16px;
-    animation: fadeUp 0.5s ease 0.2s both;
-  }
-
-  .hero-headline strong {
-    font-weight: 800;
-    color: var(--white);
-  }
-
-  .hero-headline .accent { color: var(--blue); }
-
-  .hero-sub {
-    font-size: 17px;
-    color: var(--cool-grey);
-    font-weight: 300;
-    line-height: 1.5;
-    max-width: 540px;
-    margin-bottom: 40px;
-    animation: fadeUp 0.5s ease 0.3s both;
-  }
-
-  /* QUICK LAUNCH GRID */
-  .launch-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    width: 100%;
-    max-width: 900px;
-    margin-bottom: 40px;
-    animation: fadeUp 0.5s ease 0.4s both;
-  }
-
-  .launch-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: var(--radius-sm);
-    padding: 20px 16px;
-    cursor: pointer;
-    transition: all 0.22s;
-    text-align: center;
-    backdrop-filter: blur(8px);
-  }
-
-  .launch-card:hover {
-    background: rgba(0,192,243,0.12);
-    border-color: rgba(0,192,243,0.4);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,192,243,0.15);
-  }
-
-  .launch-icon { font-size: 24px; margin-bottom: 10px; }
-
-  .launch-title {
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-    line-height: 1.2;
-  }
-
-  .launch-desc {
-    font-size: 11px;
-    color: var(--cool-grey);
-    line-height: 1.4;
-  }
-
-  /* CHAT TRIGGER */
-  .chat-trigger {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(0,192,243,0.3);
-    border-radius: 40px;
-    padding: 14px 20px 14px 24px;
-    width: 100%;
-    max-width: 620px;
-    cursor: text;
-    transition: all 0.2s;
-    animation: fadeUp 0.5s ease 0.5s both;
-    backdrop-filter: blur(12px);
-  }
-
-  .chat-trigger:hover {
-    border-color: var(--blue);
-    background: rgba(0,0,0,0.45);
-  }
-
-  .trigger-text {
-    flex: 1;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 15px;
-    color: rgba(255,255,255,0.4);
-    text-align: left;
-  }
-
-  .trigger-btn {
-    width: 40px;
-    height: 40px;
-    background: var(--blue);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  /* FULL CHAT OVERLAY */
-  .chat-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--onyx);
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.18s;
   }
 
-  .chat-overlay.active {
-    opacity: 1;
-    pointer-events: all;
+  .topic-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,180,216,0.12);
+  }
+  .topic-card:hover::before { opacity: 1; }
+  .topic-card:active { transform: translateY(0); }
+
+  .tc-1::before { background: var(--cyan); }
+  .tc-2::before { background: var(--green); }
+  .tc-3::before { background: var(--purple); }
+  .tc-4::before { background: var(--amber); }
+  .tc-5::before { background: var(--red); }
+  .tc-6::before { background: var(--teal); }
+
+  .tc-emoji { font-size: 22px; margin-bottom: 10px; display: block; }
+  .tc-title { font-size: 13px; font-weight: 700; color: var(--dark); display: block; margin-bottom: 5px; }
+  .tc-desc { font-size: 12px; color: var(--text-mid); line-height: 1.5; display: block; }
+
+  /* QUICK ASKS */
+  .quick-asks-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); margin-bottom: 10px; align-self: flex-start; }
+
+  .quick-asks {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    width: 100%;
   }
 
-  /* CHAT HEADER */
-  .chat-header {
-    background: var(--steel);
-    padding: 0 32px;
-    height: 66px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(0,192,243,0.2);
-    flex-shrink: 0;
+  .qa-btn {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 24px;
+    padding: 8px 16px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: var(--font);
+  }
+  .qa-btn:hover { background: var(--cyan-pale); border-color: var(--cyan); color: var(--primary); }
+
+  /* CHAT STATE */
+  .chat-state {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    max-width: 740px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 24px;
   }
 
-  .chat-logo-group {
+  .chat-messages {
+    flex: 1;
+    padding: 28px 0;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .new-topic-bar {
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 12px 0;
+    margin-bottom: 16px;
   }
-
-  .chat-logo-group svg { width: 32px; height: 32px; }
-
-  .chat-title-block { }
-
-  .chat-title {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--white);
-  }
-
-  .chat-status {
-    font-size: 11px;
-    color: var(--cool-grey);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .status-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #2ecc71;
-  }
-
-  .back-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: transparent;
-    border: 1px solid rgba(0,192,243,0.25);
-    border-radius: 10px;
-    padding: 7px 14px;
-    color: var(--cool-grey);
-    font-family: 'Nunito', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
+  .ntb-line { flex: 1; height: 1px; background: var(--border); }
+  .ntb-btn {
+    font-size: 11px; font-weight: 600;
+    color: var(--primary);
+    background: var(--cyan-pale);
+    border: 1px solid var(--cyan-mid);
+    border-radius: 20px;
+    padding: 5px 14px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
+    font-family: var(--font);
   }
-
-  .back-btn:hover {
-    color: var(--white);
-    border-color: rgba(0,192,243,0.5);
-    background: rgba(0,192,243,0.08);
-  }
+  .ntb-btn:hover { background: var(--cyan); color: var(--white); border-color: var(--cyan); }
 
   /* MESSAGES */
-  .messages-wrap {
-    flex: 1;
-    overflow-y: auto;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background: #0c1820;
-  }
+  .msg-group { margin-bottom: 24px; }
 
-  .messages-wrap::-webkit-scrollbar { width: 4px; }
-  .messages-wrap::-webkit-scrollbar-thumb { background: rgba(0,192,243,0.2); border-radius: 4px; }
+  .msg-row { display: flex; gap: 12px; margin-bottom: 8px; }
+  .msg-row.user { flex-direction: row-reverse; }
 
-  .msg {
-    display: flex;
-    gap: 14px;
-    max-width: 820px;
-    animation: fadeUp 0.3s ease;
-  }
-
-  .msg.user {
-    flex-direction: row-reverse;
-    align-self: flex-end;
-  }
-
-  .av {
-    width: 36px;
-    height: 36px;
-    border-radius: 12px;
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
+    margin-top: 4px;
+  }
+  .avatar.bot { background: var(--cyan-pale); color: var(--primary); border: 2px solid var(--cyan-mid); }
+  .avatar.me { background: var(--primary); color: var(--white); }
+
+  .bubble {
+    max-width: 75%;
+    padding: 14px 18px;
+    border-radius: 18px;
     font-size: 14px;
+    line-height: 1.65;
   }
 
-  .msg.agent .av {
-    background: linear-gradient(135deg, var(--blue), var(--steel));
+  .msg-row.bot .bubble {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-top-left-radius: 4px;
+    color: var(--text);
+  }
+
+  .msg-row.user .bubble {
+    background: var(--primary);
     color: var(--white);
+    border-top-right-radius: 4px;
   }
 
-  .msg.user .av {
-    background: rgba(255,103,32,0.15);
-    border: 1px solid rgba(255,103,32,0.3);
-    color: var(--orange);
-  }
+  .bubble strong { font-weight: 700; }
+  .bubble ul, .bubble ol { padding-left: 18px; margin: 8px 0; }
+  .bubble li { margin-bottom: 5px; }
+  .bubble h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--primary); }
+  .bubble p + p { margin-top: 8px; }
 
-  .bub {
-    max-width: 620px;
-    padding: 16px 20px;
-    border-radius: var(--radius);
-    font-size: 14px;
-    line-height: 1.75;
-  }
-
-  .msg.agent .bub {
-    background: rgba(15,61,88,0.5);
-    border: 1px solid rgba(0,192,243,0.15);
-    color: var(--nano);
-    border-radius: 4px var(--radius) var(--radius) var(--radius);
-  }
-
-  .msg.user .bub {
-    background: rgba(0,192,243,0.12);
-    border: 1px solid rgba(0,192,243,0.25);
-    color: var(--white);
-    border-radius: var(--radius) 4px var(--radius) var(--radius);
-  }
-
-  .bub p { margin-bottom: 8px; }
-  .bub p:last-child { margin-bottom: 0; }
-  .bub strong { color: var(--white); font-weight: 700; }
-
-  .action-next {
-    background: rgba(255,103,32,0.1);
-    border: 1px solid rgba(255,103,32,0.25);
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--nano);
-  }
-
-  .action-next-title {
-    font-family: 'Nunito', sans-serif;
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--orange);
-    letter-spacing: 1px;
-    text-transform: uppercase;
+  .bot-label {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-left: 46px;
+    margin-top: -4px;
     margin-bottom: 4px;
   }
 
-  /* CHIPS */
-  .chip-row {
+  .follow-ups {
+    margin-left: 46px;
+    margin-top: 8px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
-
-  .followchip {
-    background: rgba(0,192,243,0.08);
-    border: 1px solid rgba(0,192,243,0.25);
-    border-radius: 24px;
-    padding: 6px 14px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--blue);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .followchip:hover {
-    background: var(--blue);
-    color: var(--white);
-    border-color: var(--blue);
-  }
-
-  /* TYPING */
-  .typing-row {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    animation: fadeUp 0.3s ease;
-  }
-
-  .typing-bub {
-    background: rgba(15,61,88,0.5);
-    border: 1px solid rgba(0,192,243,0.15);
-    border-radius: 4px var(--radius) var(--radius) var(--radius);
-    padding: 16px 20px;
-    display: flex;
     gap: 6px;
   }
 
-  .dot {
-    width: 7px;
-    height: 7px;
-    background: var(--blue);
-    border-radius: 50%;
-    opacity: 0.5;
-    animation: pulse 1.4s infinite;
+  .fup {
+    font-size: 12px;
+    background: var(--cyan-pale);
+    color: var(--primary);
+    border: 1px solid var(--cyan-mid);
+    border-radius: 20px;
+    padding: 5px 13px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    font-family: var(--font);
+  }
+  .fup:hover { background: var(--cyan); color: var(--white); border-color: var(--cyan); }
+
+  .typing-row { display: flex; gap: 12px; align-items: flex-start; }
+  .typing-bubble {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    border-top-left-radius: 4px;
+    padding: 14px 18px;
+    display: flex; gap: 4px; align-items: center;
+  }
+  .td { width: 7px; height: 7px; border-radius: 50%; background: var(--text-light); animation: td 1.2s infinite; }
+  .td:nth-child(2) { animation-delay: 0.2s; }
+  .td:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes td { 0%,60%,100%{transform:translateY(0);opacity:0.4;} 30%{transform:translateY(-4px);opacity:1;} }
+
+  /* BOTTOM INPUT */
+  .input-section {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 16px 24px 20px;
+    position: sticky;
+    bottom: 0;
   }
 
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes pulse {
-    0%, 80%, 100% { opacity: 0.5; transform: scale(1); }
-    40% { opacity: 1; transform: scale(1.3); }
+  .input-inner {
+    max-width: 740px;
+    margin: 0 auto;
   }
 
-  /* CHAT INPUT */
-  .input-zone {
-    padding: 16px 32px 24px;
-    border-top: 1px solid rgba(0,192,243,0.1);
-    background: #0c1820;
-  }
-
-  .input-shell {
+  .input-box {
     display: flex;
     align-items: flex-end;
-    gap: 12px;
-    background: rgba(15,61,88,0.5);
-    border: 1.5px solid rgba(0,192,243,0.2);
-    border-radius: var(--radius);
-    padding: 12px 16px;
-    transition: border-color 0.2s;
+    gap: 10px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 10px 12px;
+    transition: border-color 0.15s;
   }
 
-  .input-shell:focus-within {
-    border-color: rgba(0,192,243,0.55);
+  .input-box:focus-within {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
   }
 
-  #chatInput {
+  .input-box textarea {
     flex: 1;
     background: transparent;
     border: none;
     outline: none;
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: var(--font);
     font-size: 14px;
-    color: var(--white);
+    color: var(--text);
     resize: none;
-    min-height: 24px;
     max-height: 120px;
     line-height: 1.5;
+    padding: 2px 0;
   }
+  .input-box textarea::placeholder { color: var(--text-light); }
 
-  #chatInput::placeholder { color: var(--cool-grey); }
-
-  .chat-send {
-    width: 38px;
-    height: 38px;
-    background: var(--blue);
-    border: none;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .send-btn {
+    width: 38px; height: 38px;
+    background: var(--primary);
+    border: none; border-radius: 10px;
     cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s, transform 0.1s;
     flex-shrink: 0;
-    transition: all 0.2s;
   }
+  .send-btn:hover { background: var(--cyan); }
+  .send-btn:active { transform: scale(0.94); }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .send-btn svg { width: 16px; height: 16px; fill: var(--white); }
 
-  .chat-send:hover { background: #00d4ff; transform: scale(1.05); }
-  .chat-send:disabled { background: rgba(0,192,243,0.3); cursor: not-allowed; transform: none; }
-
-  .input-note {
-    text-align: center;
-    font-size: 11px;
-    color: rgba(255,255,255,0.2);
-    margin-top: 10px;
-    letter-spacing: 0.3px;
-  }
-
-  /* CONTACTS FOOTER IN OVERLAY */
-  .overlay-contacts {
+  .input-footer {
     display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    padding: 0 32px 8px;
-    background: #0c1820;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
   }
 
-  .oc-item {
-    font-size: 11px;
-    color: var(--cool-grey);
-  }
+  .shortcut-hint { font-size: 11px; color: var(--text-light); }
+  .input-disclaimer { font-size: 10px; color: var(--text-light); }
 
-  .oc-item a { color: var(--blue); text-decoration: none; }
-  .oc-item a:hover { text-decoration: underline; }
-
-  @media (max-width: 900px) {
-    .launch-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero-headline { font-size: 36px; }
-  }
-
-  @media (max-width: 600px) {
-    .launch-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero-content { padding: 24px 20px; }
-    .header { padding: 16px 20px; }
-    .chat-header { padding: 0 20px; }
-    .messages-wrap { padding: 20px 16px; }
-    .input-zone { padding: 12px 16px 20px; }
-    .overlay-contacts { padding: 0 16px 8px; }
+  @media(max-width:640px){
+    .topics-grid { grid-template-columns:1fr 1fr; }
+    .header-title, .header-divider, .policy-badge { display:none; }
+    .welcome-h { font-size: 22px; }
+    .chat-state, .welcome-state { padding: 0 12px; }
   }
 </style>
 </head>
 <body>
 
-<!-- HERO / LANDING -->
-<div class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-orb"></div>
-  <div class="hero-orb2"></div>
-  <div class="hero-pattern"></div>
-
-  <header class="header">
-    <div class="logo-wrap">
-      
-      <span class="brand-name"><span>C Spire</span></span>
-    </div>
-    <div class="header-pill">Procurement Guide · Internal</div>
-  </header>
-
-  <div class="hero-content">
-    <div class="hero-eyebrow">Procurement &amp; Authorization Policy</div>
-    <h1 class="hero-headline">
-      Your policy questions.<br>
-      <strong>Answered <span class="accent">instantly.</span></strong>
-    </h1>
-    <p class="hero-sub">
-      Ask anything about C Spire's procurement policies, approval thresholds, Oracle Fusion, and vendor setup. No policy manual required.
-    </p>
-
-    <div class="launch-grid">
-      <div class="launch-card" onclick="openChat('What are the purchase approval thresholds and who approves each level?')">
-        <div class="launch-icon">💰</div>
-        <div class="launch-title">Approval Thresholds</div>
-        <div class="launch-desc">Spend limits by role</div>
-      </div>
-      <div class="launch-card" onclick="openChat('How do I create a purchase requisition in Oracle Fusion step by step?')">
-        <div class="launch-icon">🖥️</div>
-        <div class="launch-title">Oracle Fusion PR</div>
-        <div class="launch-desc">Step-by-step guide</div>
-      </div>
-      <div class="launch-card" onclick="openChat('What is the process for setting up a new vendor in the system?')">
-        <div class="launch-icon">🤝</div>
-        <div class="launch-title">Vendor Setup</div>
-        <div class="launch-desc">Onboarding a supplier</div>
-      </div>
-      <div class="launch-card" onclick="openChat('What is the No-PO No-Pay policy and what do I need to know?')">
-        <div class="launch-icon">📋</div>
-        <div class="launch-title">No-PO No-Pay</div>
-        <div class="launch-desc">PO requirements explained</div>
-      </div>
-      <div class="launch-card" onclick="openChat('What are the rules around emergency or sole source purchases?')">
-        <div class="launch-icon">⚡</div>
-        <div class="launch-title">Emergency Buys</div>
-        <div class="launch-desc">Sole source &amp; exceptions</div>
-      </div>
-      <div class="launch-card" onclick="openChat('When does a purchase require a formal contract or legal review?')">
-        <div class="launch-icon">⚖️</div>
-        <div class="launch-title">Contracts &amp; Legal</div>
-        <div class="launch-desc">When legal review is required</div>
-      </div>
-      <div class="launch-card" onclick="openChat('What competitive bidding is required for purchases over $10,000?')">
-        <div class="launch-icon">📊</div>
-        <div class="launch-title">Bidding Rules</div>
-        <div class="launch-desc">Quotes &amp; RFP thresholds</div>
-      </div>
-      <div class="launch-card" onclick="openChat('I\'m not sure what to do — can you help me figure out the right process?')">
-        <div class="launch-icon">❓</div>
-        <div class="launch-title">Not Sure?</div>
-        <div class="launch-desc">Describe your situation</div>
-      </div>
-    </div>
-
-    <div class="chat-trigger" onclick="focusChatInput()">
-      <span class="trigger-text">Ask anything about procurement, approvals, vendors…</span>
-      <div class="trigger-btn">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+<header class="header">
+  <div class="header-left">
+    <div class="cspire-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
         </svg>
       </div>
+      <span class="logo-name">C Spire</span>
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-title">Procurement Assistant</span>
+  </div>
+  <div class="header-right">
+    <span class="policy-badge">Policy effective May 1, 2026</span>
+  </div>
+</header>
+
+<div class="layout" id="layout">
+
+  <!-- WELCOME -->
+  <div class="welcome-state" id="welcomeState">
+    <div class="welcome-eyebrow">Procurement Policy Guide</div>
+    <h1 class="welcome-h">How can I help you today?</h1>
+    <p class="welcome-sub">Ask me anything about C Spire's procurement rules, purchase approvals, vendor setup, spend authority, and more. Plain answers, fast.</p>
+
+    <div class="topics-label">Browse by topic</div>
+    <div class="topics-grid">
+      <div class="topic-card tc-1" onclick="fire('What approvals do I need and who can sign off at each dollar level?')">
+        <span class="tc-emoji">✅</span>
+        <span class="tc-title">Approval Authority</span>
+        <span class="tc-desc">Who can approve what at each spend level</span>
+      </div>
+      <div class="topic-card tc-2" onclick="fire('Walk me through how to create a Purchase Requisition in Oracle Fusion step by step')">
+        <span class="tc-emoji">🖥️</span>
+        <span class="tc-title">Create a PR in Oracle</span>
+        <span class="tc-desc">Step-by-step guide to submitting a requisition</span>
+      </div>
+      <div class="topic-card tc-3" onclick="fire('How do I set up a new vendor at C Spire and what documents do they need?')">
+        <span class="tc-emoji">🏢</span>
+        <span class="tc-title">New Vendor Setup</span>
+        <span class="tc-desc">Documents required and who to contact</span>
+      </div>
+      <div class="topic-card tc-4" onclick="fire('Explain the 5 spend bands — what each one means and what I need to do')">
+        <span class="tc-emoji">💰</span>
+        <span class="tc-title">Spend Bands & Thresholds</span>
+        <span class="tc-desc">Band 0–4 and what documentation each requires</span>
+      </div>
+      <div class="topic-card tc-5" onclick="fire('When do I need a contract versus just a purchase order?')">
+        <span class="tc-emoji">📝</span>
+        <span class="tc-title">Contract vs. PO</span>
+        <span class="tc-desc">When a contract is required, not just a PO</span>
+      </div>
+      <div class="topic-card tc-6" onclick="fire('What are the No PO No Pay rules and what happens if I get an invoice without a PO?')">
+        <span class="tc-emoji">🚫</span>
+        <span class="tc-title">No PO, No Pay</span>
+        <span class="tc-desc">Invoice and payment compliance rules</span>
+      </div>
+    </div>
+
+    <div class="quick-asks-label">Quick questions</div>
+    <div class="quick-asks">
+      <button class="qa-btn" onclick="fire('Can a supplier start work before I have a PO in place?')">Can a supplier start before I have a PO?</button>
+      <button class="qa-btn" onclick="fire('I need to make an emergency purchase. What is the process?')">How do emergency purchases work?</button>
+      <button class="qa-btn" onclick="fire('What are the rules for purchasing IT software or SaaS tools?')">Buying IT software or SaaS</button>
+      <button class="qa-btn" onclick="fire('Can I split a purchase into smaller orders to avoid approval thresholds?')">Can I split purchases?</button>
+      <button class="qa-btn" onclick="fire('How do I submit an invoice to C Spire?')">How to submit an invoice</button>
+      <button class="qa-btn" onclick="fire('What is a P-Card and when can I use it?')">When can I use a P-Card?</button>
+      <button class="qa-btn" onclick="fire('Who do I contact if I have procurement questions?')">Who do I contact?</button>
     </div>
   </div>
+
+  <!-- CHAT -->
+  <div class="chat-state" id="chatState">
+    <div class="chat-messages" id="chatMessages"></div>
+  </div>
+
 </div>
 
-<!-- FULL CHAT OVERLAY -->
-<div class="chat-overlay" id="chatOverlay">
-  <div class="chat-header">
-    <div class="chat-logo-group">
-      
-      <div class="chat-title-block">
-        <div class="chat-title">C Spire Procurement Guide</div>
-        <div class="chat-status"><span class="status-dot"></span> Ready to help</div>
-      </div>
-    </div>
-    <button class="back-btn" onclick="closeChat()">
-      ← Back to Home
-    </button>
-  </div>
-
-  <div class="messages-wrap" id="messages"></div>
-
-  <div class="overlay-contacts">
-    <span class="oc-item">Vendor Setup: <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a> (Benjamin Quinn)</span>
-    <span class="oc-item" style="margin-left:12px;">AP: <a href="mailto:accountspayable@cspire.com">accountspayable@cspire.com</a></span>
-  </div>
-
-  <div class="input-zone">
-    <div class="input-shell">
-      <textarea id="chatInput" rows="1" placeholder="Ask about purchases, approvals, vendors, Oracle…"
-        onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="chat-send" id="sendBtn" onclick="sendMessage()">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-        </svg>
+<!-- INPUT (always visible) -->
+<div class="input-section">
+  <div class="input-inner">
+    <div class="input-box">
+      <textarea
+        id="inp"
+        placeholder="Ask about procurement rules, approvals, vendor setup, POs..."
+        rows="1"
+        onkeydown="handleKey(event)"
+        oninput="grow(this)"
+      ></textarea>
+      <button class="send-btn" id="sendBtn" onclick="send()">
+        <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/></svg>
       </button>
     </div>
-    <div class="input-note">C Spire Procurement Policy · Internal Use Only · ©2026 C Spire. All rights reserved.</div>
+    <div class="input-footer">
+      <span class="shortcut-hint">↵ to send &nbsp;·&nbsp; Shift+↵ for new line</span>
+      <span class="input-disclaimer">Based on C Spire policies effective May 1, 2026</span>
+    </div>
   </div>
 </div>
 
 <script>
-const SYSTEM_PROMPT = `You are the C Spire Procurement Assistant — an internal tool for C Spire managers and team members. You answer questions about C Spire's procurement processes, corporate authorization policies, and purchasing guidelines in plain, conversational language.
+const SYS = `You are a friendly, knowledgeable C Spire Procurement Assistant helping managers navigate procurement rules. You have thorough knowledge of:
 
-KEY POLICIES YOU KNOW:
+1. C Spire PROCUREMENT POLICY (effective May 1, 2026):
+FIVE SPEND BANDS (based on TOTAL commitment value):
+- Band 0: <$5K → P-Card/low-touch PO, no formal competition needed
+- Band 1: $5K–$30K → 1+ written quote, self-serve
+- Band 2: $30K–$100K → 2-3 competitive quotes or structured RFQ
+- Band 3: $100K–$500K → Formal RFP, Procurement co-leads, Legal reviews
+- Band 4: >$500K → Procurement leads, strategic sourcing, executive sponsors
 
-CORPORATE AUTHORIZATION POLICY (CAP):
-- Spend authority is tiered by dollar amount and role
-- Manager level: up to $2,500 per transaction
-- Director level: up to $10,000
-- VP level: up to $25,000
-- SVP/EVP level: up to $100,000
-- C-Suite/CEO: above $100,000 (requires CFO co-sign above certain thresholds)
-- All purchases must have budget approval before commitment
-- Capital expenditures follow a separate approval track
+BUYING CHANNELS: Catalog/Preferred PO → Non-Catalog PO → P-Card → Contract+SOW+PO → Direct Pay (very limited)
 
-PROCUREMENT POLICY:
-- No-PO No-Pay: All purchases from vendors require a Purchase Order before the work begins or goods are received. Invoices without a matching PO will not be paid.
-- Purchase Requisitions (PRs) must be created in Oracle Fusion before any commitment is made
-- Competitive bids required: 3 quotes for $10K–$50K purchases; formal RFP/RFQ for purchases above $50K
-- Sole source purchases (single vendor, no competition) require a written sole source justification approved at VP level or above
-- Emergency purchases still require after-the-fact PO documentation within 24 hours
-- Contracts $25K+ require Legal review before signing
-- All software/technology purchases require IT Security review
+NON-NEGOTIABLE RULES:
+- No work without an approved PO (and contract where required) — exceptions only via formal emergency process
+- No PO splitting to avoid thresholds (policy violation)
+- No verbal or email approvals — must be in Oracle Fusion or Chrome River
+- No self-approval of your own requisitions
+- Competitive bidding required for Bands 2-4 (unless sole-source exception approved)
+- No accepting supplier terms by email/on a quote — route to Procurement
+- Retroactive POs only via approved exception
 
-ORACLE FUSION PURCHASE REQUISITION STEPS:
-1. Log into Oracle Fusion
-2. Navigate to Procurement → Purchase Requisitions
-3. Click "Create Requisition"
-4. Enter description, quantity, unit price, and required date
-5. Select the correct cost center and budget account
-6. Search for and select an approved vendor from the supplier list
-7. Attach supporting quotes or justification documents
-8. Submit for approval — the workflow routes automatically based on spend amount
-9. Track status under "My Requisitions"
-Note: The vendor MUST already be in Oracle. If not, request vendor setup first.
+WHEN YOU NEED A CONTRACT (not just PO): Services, SaaS/software, recurring subscriptions, confidential data, supplier terms beyond a quote.
 
-VENDOR SETUP & ONBOARDING:
-- Contact: Benjamin Quinn at vendoradmin@cspire.com
-- New vendors must complete the C Spire Vendor Registration form
-- Vendors must provide W-9 (domestic) or W-8BEN (foreign)
-- Insurance certificates required for service vendors
-- Vendor setup takes 3–5 business days
-- Do not commit to a vendor until they are fully set up in Oracle
+EMERGENCY PURCHASES: Only for immediate risk to life/health/safety or major service outage. Notify Procurement ASAP, document within 24-48 hours.
 
-KEY CONTACTS:
-- Vendor Setup: Benjamin Quinn — vendoradmin@cspire.com
-- Accounts Payable: accountspayable@cspire.com
+2. CORPORATE AUTHORIZATION POLICY (CAP, effective May 1, 2026):
+APPROVAL LEVELS (all operating costs general):
+- Manager: up to $10K
+- Sr Manager/Director: up to $50K
+- Sr Director/VP: up to $100K
+- SVP: up to $500K
+- BU EVP or Officer (COO/CFO/COO/CMO/CHRO): up to $5M
+- CFO: up to $10M
+- CEO: over $10M
 
-TONE:
-- Direct, clear, conversational — like a knowledgeable colleague
-- Plain-language answers, not policy recitation
-- Tell them what to DO next
-- Use "C Spire" (space between C and Spire, both capitalized) — never CSpire or C-Spire
-- Do not say "please" or "sorry" — speak confidently`;
+IT SPEND (Hardware/Software/Maintenance):
+- Manager: up to $10K
+- Sr Mgr/Director: up to $50K
+- Sr Director/VP: up to $100K
+- CIO: up to $500K
+- COO or BU EVP: up to $5M
+- CEO or CFO: over $10M
+PLUS: ALL IT/software/AI agreements require CISO approval before execution.
+
+OTHER SPECIAL RULES:
+- Authority is based on TOTAL financial commitment, not annual spend
+- For contracts with opt-out ≤91 days, authority based on shorter period (e.g., 90-day notice period)
+- Related party contracts: must get CEO or CFO pre-approval before even bidding
+- Customer data agreements: Deputy General Counsel for Privacy must approve
+- Real estate: Sr Director/VP and up
+
+"Manager" definition: only non-sales roles where "Manager" PRECEDES the function (e.g., "Manager, Network Field Operations"). "FP&A Manager" or "Operations Manager" do NOT count. Team Leaders, Supervisors, and Assistant Managers have no approval authority.
+
+3. VENDOR SETUP POLICY:
+- Domestic: W-9 required before services start and before any payment
+- Foreign: W-8BEN-E required, renewed every 3 years
+- New W-9 also required for: name change, address change, entity change, or vendor inactive >2 years
+- Contact: vendoradmin@cspire.com or Benjamin Quinn (601-707-3387)
+
+INVOICE SUBMISSION (PDF attachments by email, match entity to PO entity):
+- Cellular South Inc → invoices@cspire.com
+- Telepak Networks/C Spire Fiber → csfiberinvoices@cspire.com
+- Troy Cablevision → troyinvoices@cspire.com
+- TekLinks → teklinksinvoices@cspire.com
+- Harbor Communications → harborinvoices@cspire.com
+- AP questions: accountspayable@cspire.com
+
+PAYMENT OPTIONS: PNC Visa Virtual Card (preferred), Paymode-X, or Check. Net 30 days from invoice receipt.
+
+4. ORACLE FUSION PR STEPS:
+1. Log in → Procurement → Purchase Requisitions (New)
+2. Update Preferences if first time (set Delivery-to Location, keep Destination Type = Expense)
+3. Create Noncatalog Request
+4. Enter detailed Item Description (include service period, key details)
+5. Select Item Type: Goods-Billed by Qty / Services-Billed by Qty / Services-Billed by Amount
+6. Choose Category (type keywords like "software")
+7. Enter Quantity + UOM (Each) + Price per unit, OR just total Amount for services-by-amount
+8. Select Supplier (type 3+ characters, select from list, do NOT check New Supplier)
+9. Click Add to Cart
+10. Repeat steps 4-9 for additional items
+11. View Cart → Edit Requisition Summary (add Description + Justification/email for returns)
+12. If project-tied: fill Project Costing section (Project#, Task#, Expenditure info)
+13. Edit Charge Account → Search for Combination → verify all GL values → Apply
+14. Add Attachments (vendor quotes, contracts, justification — REQUIRED for approval)
+15. Click Update → then Submit
+
+5. KEY CONTACTS:
+- Vendor setup/changes: vendoradmin@cspire.com (Benjamin Quinn)
+- AP/invoices: accountspayable@cspire.com
+- Procurement guidance: Procurement department
+- Policy questions: Controller or CFO
+
+RESPONSE STYLE:
+- Friendly, plain-language, like a knowledgeable colleague
+- Concise but complete — don't over-qualify
+- Use numbered steps for processes, bullets for lists
+- For spending questions: always identify the spend band and tell them what's required
+- For approval questions: give them the specific approval level needed
+- End with a clear next step or offer to dig deeper
+- If it's a gray area, say so and recommend they contact Procurement
+`;
 
 let history = [];
 let busy = false;
-let pendingMessage = null;
 
-function openChat(msg) {
-  pendingMessage = msg;
-  document.getElementById('chatOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-  if (msg) {
-    setTimeout(() => {
-      document.getElementById('chatInput').value = msg;
-      sendMessage();
-    }, 200);
-  } else {
-    document.getElementById('chatInput').focus();
-  }
-}
-
-function focusChatInput() {
-  openChat(null);
-  setTimeout(() => document.getElementById('chatInput').focus(), 300);
-}
-
-function closeChat() {
-  document.getElementById('chatOverlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function autoResize(el) {
+function grow(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 120) + 'px';
 }
 
 function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
 }
 
-async function sendMessage() {
+function fire(q) {
+  document.getElementById('inp').value = q;
+  send();
+}
+
+async function send() {
   if (busy) return;
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
+  const inp = document.getElementById('inp');
+  const q = inp.value.trim();
+  if (!q) return;
 
-  input.value = '';
-  input.style.height = 'auto';
-  document.getElementById('sendBtn').disabled = true;
+  showChat();
+  addUserMsg(q);
+  history.push({ role: 'user', content: q });
+  inp.value = ''; inp.style.height = 'auto';
+
   busy = true;
-
-  addMsg('user', text);
-  history.push({ role: 'user', content: text });
-
-  const typing = addTyping();
+  document.getElementById('sendBtn').disabled = true;
+  addTyping();
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -841,85 +636,130 @@ async function sendMessage() {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
-        system: SYSTEM_PROMPT,
+        system: SYS,
         messages: history
       })
     });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Something went wrong. Try again.';
-    typing.remove();
+    const d = await res.json();
+    const reply = d.content[0].text;
     history.push({ role: 'assistant', content: reply });
-    addMsg('agent', reply);
+    removeTyping();
+    addBotMsg(reply, q);
   } catch {
-    typing.remove();
-    addMsg('agent', 'Something went wrong. Try again or contact your procurement coordinator directly.');
+    removeTyping();
+    addBotMsg("I'm having trouble connecting right now. Please try again shortly, or contact Procurement for help.", q);
   }
 
   busy = false;
   document.getElementById('sendBtn').disabled = false;
-  document.getElementById('chatInput').focus();
 }
 
-function addMsg(role, text) {
-  const msgs = document.getElementById('messages');
-  const el = document.createElement('div');
-  el.className = `msg ${role}`;
+function showChat() {
+  document.getElementById('welcomeState').style.display = 'none';
+  const cs = document.getElementById('chatState');
+  cs.style.display = 'flex';
+}
 
-  const av = document.createElement('div');
-  av.className = 'av';
-  av.textContent = role === 'agent' ? '★' : 'M';
+function addUserMsg(text) {
+  const m = document.getElementById('chatMessages');
+  const d = document.createElement('div');
+  d.className = 'msg-row user';
+  d.innerHTML = `<div class="avatar me">ME</div><div class="bubble">${esc(text)}</div>`;
+  m.appendChild(d);
+  scroll();
+}
 
-  const bub = document.createElement('div');
-  bub.className = 'bub';
-  const formatted = text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/\n/g, '<br>');
-  bub.innerHTML = `<p>${formatted}</p>`;
+function addBotMsg(text, userQ) {
+  const m = document.getElementById('chatMessages');
+  const d = document.createElement('div');
 
-  if (role === 'agent') {
-    const chips = getSuggestedChips(text);
-    if (chips.length) {
-      const row = document.createElement('div');
-      row.className = 'chip-row';
-      chips.forEach(c => {
-        const ch = document.createElement('button');
-        ch.className = 'followchip';
-        ch.textContent = c;
-        ch.onclick = () => {
-          document.getElementById('chatInput').value = c;
-          sendMessage();
-        };
-        row.appendChild(ch);
-      });
-      bub.appendChild(row);
-    }
+  const followUps = getFollowUps(userQ, text);
+
+  d.innerHTML = `
+    <div class="msg-row bot">
+      <div class="avatar bot">AI</div>
+      <div class="bubble">${fmt(text)}</div>
+    </div>
+    ${followUps.length ? `<div class="follow-ups">${followUps.map(f => `<button class="fup" onclick="fire('${esc(f)}')">${esc(f)}</button>`).join('')}</div>` : ''}
+  `;
+  m.appendChild(d);
+  
+  if (history.length > 4) {
+    const bar = document.createElement('div');
+    bar.className = 'new-topic-bar';
+    bar.innerHTML = `<div class="ntb-line"></div><button class="ntb-btn" onclick="newTopic()">+ New topic</button><div class="ntb-line"></div>`;
+    // only add occasionally
   }
-
-  el.appendChild(av);
-  el.appendChild(bub);
-  msgs.appendChild(el);
-  msgs.scrollTop = msgs.scrollHeight;
+  
+  scroll();
 }
 
-function getSuggestedChips(text) {
-  const t = text.toLowerCase();
-  if (t.includes('oracle') || t.includes('requisition')) return ['What if my vendor isn\'t in Oracle?', 'How long for PR approval?'];
-  if (t.includes('vendor') || t.includes('supplier')) return ['How long does setup take?', 'What documents are needed?'];
-  if (t.includes('approv') || t.includes('threshold') || t.includes('limit')) return ['What needs Legal review?', 'Who signs capital expenses?'];
-  if (t.includes('po') || t.includes('purchase order')) return ['How do I create a PO?', 'Invoice with no PO — what now?'];
-  return ['What else should I know?', 'Who do I contact about this?'];
+function getFollowUps(q, answer) {
+  const ql = q.toLowerCase();
+  if (ql.includes('approval') || ql.includes('approve') || ql.includes('authority')) {
+    return ['How do I submit a PR in Oracle?', 'What if I\'m over my authority level?'];
+  }
+  if (ql.includes('vendor') || ql.includes('supplier')) {
+    return ['What forms does a new vendor need?', 'How do I submit an invoice?'];
+  }
+  if (ql.includes('pr') || ql.includes('requisition') || ql.includes('oracle')) {
+    return ['What attachments are required?', 'How do I code the charge account?'];
+  }
+  if (ql.includes('band') || ql.includes('spend') || ql.includes('threshold')) {
+    return ['Do I need a contract or just a PO?', 'What approvals are required?'];
+  }
+  if (ql.includes('emergency') || ql.includes('urgent')) {
+    return ['Who do I contact for emergencies?', 'How do I document an emergency purchase?'];
+  }
+  return [];
 }
 
+function newTopic() {
+  history = [];
+  document.getElementById('chatMessages').innerHTML = '';
+  document.getElementById('welcomeState').style.display = 'flex';
+  document.getElementById('chatState').style.display = 'none';
+}
+
+let typingEl = null;
 function addTyping() {
-  const msgs = document.getElementById('messages');
-  const el = document.createElement('div');
-  el.className = 'typing-row';
-  el.innerHTML = `<div class="av" style="background:linear-gradient(135deg,#00c0f3,#0f3d58);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;width:36px;height:36px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">★</div>
-    <div class="typing-bub"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
-  msgs.appendChild(el);
-  msgs.scrollTop = msgs.scrollHeight;
-  return el;
+  const m = document.getElementById('chatMessages');
+  typingEl = document.createElement('div');
+  typingEl.id = 'typ';
+  typingEl.innerHTML = `
+    <div class="typing-row">
+      <div class="avatar bot">AI</div>
+      <div class="typing-bubble">
+        <div class="td"></div><div class="td"></div><div class="td"></div>
+      </div>
+    </div>`;
+  m.appendChild(typingEl);
+  scroll();
+}
+
+function removeTyping() {
+  const t = document.getElementById('typ');
+  if (t) t.remove();
+}
+
+function fmt(text) {
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^### (.+)$/gm,'<h4>$1</h4>')
+    .replace(/^## (.+)$/gm,'<h4>$1</h4>')
+    .replace(/^# (.+)$/gm,'<h4>$1</h4>')
+    .replace(/^\- (.+)$/gm,'<li>$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm,'<li>$2</li>')
+    .replace(/(<li>[\s\S]*?<\/li>\n?)+/g, m => `<ul>${m}</ul>`)
+    .replace(/\n\n/g,'</p><p>')
+    .replace(/\n/g,'<br>');
+}
+
+function esc(t) { return t.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+function scroll() {
+  const m = document.getElementById('chatMessages');
+  setTimeout(() => m.scrollTop = m.scrollHeight, 50);
 }
 </script>
 </body>
