@@ -29,7 +29,6 @@
     overflow-x: hidden;
   }
 
-  /* HERO SECTION */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -38,7 +37,6 @@
     overflow: hidden;
   }
 
-  /* Brand-compliant gradient background - linear blue to steel */
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -46,7 +44,6 @@
     z-index: 0;
   }
 
-  /* Radial glow orb - C Spire blue only */
   .hero-orb {
     position: absolute;
     top: -20%;
@@ -69,11 +66,10 @@
   }
 
   @keyframes floatOrb {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-20px, 20px) scale(1.05); }
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-20px,20px) scale(1.05); }
   }
 
-  /* C Burst subtle background pattern */
   .hero-pattern {
     position: absolute;
     inset: 0;
@@ -83,7 +79,6 @@
     background-size: 80px 80px;
   }
 
-  /* HEADER */
   .header {
     position: relative;
     z-index: 10;
@@ -92,14 +87,6 @@
     align-items: center;
     justify-content: space-between;
   }
-
-  .logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .logo-svg { width: 40px; height: 40px; }
 
   .brand-name {
     font-family: 'Nunito', sans-serif;
@@ -124,7 +111,6 @@
     text-transform: uppercase;
   }
 
-  /* HERO CONTENT */
   .hero-content {
     position: relative;
     z-index: 5;
@@ -164,11 +150,7 @@
     animation: fadeUp 0.5s ease 0.2s both;
   }
 
-  .hero-headline strong {
-    font-weight: 800;
-    color: var(--white);
-  }
-
+  .hero-headline strong { font-weight: 800; }
   .hero-headline .accent { color: var(--blue); }
 
   .hero-sub {
@@ -181,7 +163,6 @@
     animation: fadeUp 0.5s ease 0.3s both;
   }
 
-  /* QUICK LAUNCH GRID */
   .launch-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -221,13 +202,8 @@
     line-height: 1.2;
   }
 
-  .launch-desc {
-    font-size: 11px;
-    color: var(--cool-grey);
-    line-height: 1.4;
-  }
+  .launch-desc { font-size: 11px; color: var(--cool-grey); line-height: 1.4; }
 
-  /* CHAT TRIGGER */
   .chat-trigger {
     display: flex;
     align-items: center;
@@ -244,10 +220,7 @@
     backdrop-filter: blur(12px);
   }
 
-  .chat-trigger:hover {
-    border-color: var(--blue);
-    background: rgba(0,0,0,0.45);
-  }
+  .chat-trigger:hover { border-color: var(--blue); background: rgba(0,0,0,0.45); }
 
   .trigger-text {
     flex: 1;
@@ -268,7 +241,7 @@
     flex-shrink: 0;
   }
 
-  /* FULL CHAT OVERLAY */
+  /* CHAT OVERLAY */
   .chat-overlay {
     position: fixed;
     inset: 0;
@@ -281,12 +254,8 @@
     transition: opacity 0.3s ease;
   }
 
-  .chat-overlay.active {
-    opacity: 1;
-    pointer-events: all;
-  }
+  .chat-overlay.active { opacity: 1; pointer-events: all; }
 
-  /* CHAT HEADER */
   .chat-header {
     background: var(--steel);
     padding: 0 32px;
@@ -298,13 +267,16 @@
     flex-shrink: 0;
   }
 
-  .chat-logo-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  .chat-logo-group { display: flex; align-items: center; gap: 12px; }
+
+  .chat-brand {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--white);
   }
 
-  .chat-logo-group svg { width: 32px; height: 32px; }
+  .chat-brand span { color: var(--blue); }
 
   .chat-title-block { }
 
@@ -323,11 +295,7 @@
     gap: 5px;
   }
 
-  .status-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #2ecc71;
-  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #2ecc71; }
 
   .back-btn {
     display: flex;
@@ -345,13 +313,8 @@
     transition: all 0.2s;
   }
 
-  .back-btn:hover {
-    color: var(--white);
-    border-color: rgba(0,192,243,0.5);
-    background: rgba(0,192,243,0.08);
-  }
+  .back-btn:hover { color: var(--white); border-color: rgba(0,192,243,0.5); background: rgba(0,192,243,0.08); }
 
-  /* MESSAGES */
   .messages-wrap {
     flex: 1;
     overflow-y: auto;
@@ -365,21 +328,11 @@
   .messages-wrap::-webkit-scrollbar { width: 4px; }
   .messages-wrap::-webkit-scrollbar-thumb { background: rgba(0,192,243,0.2); border-radius: 4px; }
 
-  .msg {
-    display: flex;
-    gap: 14px;
-    max-width: 820px;
-    animation: fadeUp 0.3s ease;
-  }
-
-  .msg.user {
-    flex-direction: row-reverse;
-    align-self: flex-end;
-  }
+  .msg { display: flex; gap: 14px; max-width: 820px; animation: fadeUp 0.3s ease; }
+  .msg.user { flex-direction: row-reverse; align-self: flex-end; }
 
   .av {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 12px;
     flex-shrink: 0;
     display: flex;
@@ -390,19 +343,11 @@
     font-size: 14px;
   }
 
-  .msg.agent .av {
-    background: linear-gradient(135deg, var(--blue), var(--steel));
-    color: var(--white);
-  }
-
-  .msg.user .av {
-    background: rgba(255,103,32,0.15);
-    border: 1px solid rgba(255,103,32,0.3);
-    color: var(--orange);
-  }
+  .msg.agent .av { background: linear-gradient(135deg, var(--blue), var(--steel)); color: var(--white); }
+  .msg.user .av { background: rgba(255,103,32,0.15); border: 1px solid rgba(255,103,32,0.3); color: var(--orange); }
 
   .bub {
-    max-width: 620px;
+    max-width: 660px;
     padding: 16px 20px;
     border-radius: var(--radius);
     font-size: 14px;
@@ -426,8 +371,24 @@
   .bub p { margin-bottom: 8px; }
   .bub p:last-child { margin-bottom: 0; }
   .bub strong { color: var(--white); font-weight: 700; }
+  .bub ul { padding-left: 18px; margin: 6px 0; }
+  .bub ul li { margin-bottom: 4px; }
+  .bub .step { margin-bottom: 6px; }
+  .bub .step-num {
+    display: inline-block;
+    background: var(--blue);
+    color: var(--onyx);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 8px;
+  }
 
-  .action-next {
+  .contact-box {
     background: rgba(255,103,32,0.1);
     border: 1px solid rgba(255,103,32,0.25);
     border-radius: var(--radius-sm);
@@ -437,7 +398,7 @@
     color: var(--nano);
   }
 
-  .action-next-title {
+  .contact-box-title {
     font-family: 'Nunito', sans-serif;
     font-size: 10px;
     font-weight: 800;
@@ -447,13 +408,10 @@
     margin-bottom: 4px;
   }
 
-  /* CHIPS */
-  .chip-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
+  .contact-box a { color: var(--blue); text-decoration: none; }
+  .contact-box a:hover { text-decoration: underline; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 
   .followchip {
     background: rgba(0,192,243,0.08);
@@ -468,19 +426,9 @@
     transition: all 0.2s;
   }
 
-  .followchip:hover {
-    background: var(--blue);
-    color: var(--white);
-    border-color: var(--blue);
-  }
+  .followchip:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
 
-  /* TYPING */
-  .typing-row {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    animation: fadeUp 0.3s ease;
-  }
+  .typing-row { display: flex; gap: 14px; align-items: center; animation: fadeUp 0.3s ease; }
 
   .typing-bub {
     background: rgba(15,61,88,0.5);
@@ -491,15 +439,7 @@
     gap: 6px;
   }
 
-  .dot {
-    width: 7px;
-    height: 7px;
-    background: var(--blue);
-    border-radius: 50%;
-    opacity: 0.5;
-    animation: pulse 1.4s infinite;
-  }
-
+  .dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; opacity: 0.5; animation: pulse 1.4s infinite; }
   .dot:nth-child(2) { animation-delay: 0.2s; }
   .dot:nth-child(3) { animation-delay: 0.4s; }
 
@@ -508,7 +448,6 @@
     40% { opacity: 1; transform: scale(1.3); }
   }
 
-  /* CHAT INPUT */
   .input-zone {
     padding: 16px 32px 24px;
     border-top: 1px solid rgba(0,192,243,0.1);
@@ -526,9 +465,7 @@
     transition: border-color 0.2s;
   }
 
-  .input-shell:focus-within {
-    border-color: rgba(0,192,243,0.55);
-  }
+  .input-shell:focus-within { border-color: rgba(0,192,243,0.55); }
 
   #chatInput {
     flex: 1;
@@ -547,8 +484,7 @@
   #chatInput::placeholder { color: var(--cool-grey); }
 
   .chat-send {
-    width: 38px;
-    height: 38px;
+    width: 38px; height: 38px;
     background: var(--blue);
     border: none;
     border-radius: 12px;
@@ -561,7 +497,6 @@
   }
 
   .chat-send:hover { background: #00d4ff; transform: scale(1.05); }
-  .chat-send:disabled { background: rgba(0,192,243,0.3); cursor: not-allowed; transform: none; }
 
   .input-note {
     text-align: center;
@@ -571,7 +506,6 @@
     letter-spacing: 0.3px;
   }
 
-  /* CONTACTS FOOTER IN OVERLAY */
   .overlay-contacts {
     display: flex;
     gap: 6px;
@@ -580,11 +514,7 @@
     background: #0c1820;
   }
 
-  .oc-item {
-    font-size: 11px;
-    color: var(--cool-grey);
-  }
-
+  .oc-item { font-size: 11px; color: var(--cool-grey); }
   .oc-item a { color: var(--blue); text-decoration: none; }
   .oc-item a:hover { text-decoration: underline; }
 
@@ -594,7 +524,6 @@
   }
 
   @media (max-width: 600px) {
-    .launch-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-content { padding: 24px 20px; }
     .header { padding: 16px 20px; }
     .chat-header { padding: 0 20px; }
@@ -606,7 +535,6 @@
 </head>
 <body>
 
-<!-- HERO / LANDING -->
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-orb"></div>
@@ -614,10 +542,7 @@
   <div class="hero-pattern"></div>
 
   <header class="header">
-    <div class="logo-wrap">
-      
-      <span class="brand-name"><span>C Spire</span></span>
-    </div>
+    <div class="brand-name"><span>C Spire</span></div>
     <div class="header-pill">Procurement Guide · Internal</div>
   </header>
 
@@ -632,45 +557,45 @@
     </p>
 
     <div class="launch-grid">
-      <div class="launch-card" onclick="openChat('What are the purchase approval thresholds and who approves each level?')">
+      <div class="launch-card" onclick="openChat('approval thresholds')">
         <div class="launch-icon">💰</div>
         <div class="launch-title">Approval Thresholds</div>
         <div class="launch-desc">Spend limits by role</div>
       </div>
-      <div class="launch-card" onclick="openChat('How do I create a purchase requisition in Oracle Fusion step by step?')">
+      <div class="launch-card" onclick="openChat('oracle fusion purchase requisition')">
         <div class="launch-icon">🖥️</div>
         <div class="launch-title">Oracle Fusion PR</div>
         <div class="launch-desc">Step-by-step guide</div>
       </div>
-      <div class="launch-card" onclick="openChat('What is the process for setting up a new vendor in the system?')">
+      <div class="launch-card" onclick="openChat('new vendor setup')">
         <div class="launch-icon">🤝</div>
         <div class="launch-title">Vendor Setup</div>
         <div class="launch-desc">Onboarding a supplier</div>
       </div>
-      <div class="launch-card" onclick="openChat('What is the No-PO No-Pay policy and what do I need to know?')">
+      <div class="launch-card" onclick="openChat('no po no pay policy')">
         <div class="launch-icon">📋</div>
         <div class="launch-title">No-PO No-Pay</div>
         <div class="launch-desc">PO requirements explained</div>
       </div>
-      <div class="launch-card" onclick="openChat('What are the rules around emergency or sole source purchases?')">
+      <div class="launch-card" onclick="openChat('emergency sole source purchase')">
         <div class="launch-icon">⚡</div>
         <div class="launch-title">Emergency Buys</div>
         <div class="launch-desc">Sole source &amp; exceptions</div>
       </div>
-      <div class="launch-card" onclick="openChat('When does a purchase require a formal contract or legal review?')">
+      <div class="launch-card" onclick="openChat('contracts legal review')">
         <div class="launch-icon">⚖️</div>
         <div class="launch-title">Contracts &amp; Legal</div>
         <div class="launch-desc">When legal review is required</div>
       </div>
-      <div class="launch-card" onclick="openChat('What competitive bidding is required for purchases over $10,000?')">
+      <div class="launch-card" onclick="openChat('competitive bidding quotes rfp')">
         <div class="launch-icon">📊</div>
         <div class="launch-title">Bidding Rules</div>
         <div class="launch-desc">Quotes &amp; RFP thresholds</div>
       </div>
-      <div class="launch-card" onclick="openChat('I\'m not sure what to do — can you help me figure out the right process?')">
+      <div class="launch-card" onclick="openChat('who do I contact procurement question')">
         <div class="launch-icon">❓</div>
-        <div class="launch-title">Not Sure?</div>
-        <div class="launch-desc">Describe your situation</div>
+        <div class="launch-title">Who to Contact</div>
+        <div class="launch-desc">Escalation paths</div>
       </div>
     </div>
 
@@ -686,19 +611,16 @@
   </div>
 </div>
 
-<!-- FULL CHAT OVERLAY -->
+<!-- CHAT OVERLAY -->
 <div class="chat-overlay" id="chatOverlay">
   <div class="chat-header">
     <div class="chat-logo-group">
-      
       <div class="chat-title-block">
-        <div class="chat-title">C Spire Procurement Guide</div>
+        <div class="chat-title"><span style="color:var(--blue);">C Spire</span> Procurement Guide</div>
         <div class="chat-status"><span class="status-dot"></span> Ready to help</div>
       </div>
     </div>
-    <button class="back-btn" onclick="closeChat()">
-      ← Back to Home
-    </button>
+    <button class="back-btn" onclick="closeChat()">← Back to Home</button>
   </div>
 
   <div class="messages-wrap" id="messages"></div>
@@ -712,7 +634,7 @@
     <div class="input-shell">
       <textarea id="chatInput" rows="1" placeholder="Ask about purchases, approvals, vendors, Oracle…"
         onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="chat-send" id="sendBtn" onclick="sendMessage()">
+      <button class="chat-send" onclick="sendMessage()">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="22" y1="2" x2="11" y2="13"></line>
           <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -724,81 +646,370 @@
 </div>
 
 <script>
-const SYSTEM_PROMPT = `You are the C Spire Procurement Assistant — an internal tool for C Spire managers and team members. You answer questions about C Spire's procurement processes, corporate authorization policies, and purchasing guidelines in plain, conversational language.
+// ─────────────────────────────────────────────
+//  POLICY KNOWLEDGE BASE
+//  All answers are derived from C Spire's:
+//  - Corporate Authorization Policy (CAP)
+//  - Procurement Policy v050126
+//  - Procurement & Operations Guidelines FAQs
+//  - Oracle Fusion PR Step-by-Step Guide
+//  - CSI Vendor Welcome & Vendor Setup/Change Policy
+// ─────────────────────────────────────────────
 
-KEY POLICIES YOU KNOW:
+const KB = [
 
-CORPORATE AUTHORIZATION POLICY (CAP):
-- Spend authority is tiered by dollar amount and role
-- Manager level: up to $2,500 per transaction
-- Director level: up to $10,000
-- VP level: up to $25,000
-- SVP/EVP level: up to $100,000
-- C-Suite/CEO: above $100,000 (requires CFO co-sign above certain thresholds)
-- All purchases must have budget approval before commitment
-- Capital expenditures follow a separate approval track
+  // ── APPROVAL THRESHOLDS / AUTHORIZATION ──
+  {
+    id: 'approvals',
+    triggers: ['approval','approv','threshold','limit','authority','authorize','sign off','sign-off','who approves','spend limit','dollar','amount','level','tier','how much can'],
+    title: 'Purchase Approval Thresholds',
+    answer: `C Spire's Corporate Authorization Policy (CAP) sets spend authority by role. Here's the breakdown:
 
-PROCUREMENT POLICY:
-- No-PO No-Pay: All purchases from vendors require a Purchase Order before the work begins or goods are received. Invoices without a matching PO will not be paid.
-- Purchase Requisitions (PRs) must be created in Oracle Fusion before any commitment is made
-- Competitive bids required: 3 quotes for $10K–$50K purchases; formal RFP/RFQ for purchases above $50K
-- Sole source purchases (single vendor, no competition) require a written sole source justification approved at VP level or above
-- Emergency purchases still require after-the-fact PO documentation within 24 hours
-- Contracts $25K+ require Legal review before signing
-- All software/technology purchases require IT Security review
+<ul>
+<li><strong>Manager:</strong> Up to $2,500 per transaction</li>
+<li><strong>Director:</strong> Up to $10,000</li>
+<li><strong>Vice President:</strong> Up to $25,000</li>
+<li><strong>SVP / EVP:</strong> Up to $100,000</li>
+<li><strong>C-Suite / CEO:</strong> Above $100,000 — CFO co-signature required above certain thresholds</li>
+</ul>
 
-ORACLE FUSION PURCHASE REQUISITION STEPS:
-1. Log into Oracle Fusion
-2. Navigate to Procurement → Purchase Requisitions
-3. Click "Create Requisition"
-4. Enter description, quantity, unit price, and required date
-5. Select the correct cost center and budget account
-6. Search for and select an approved vendor from the supplier list
-7. Attach supporting quotes or justification documents
-8. Submit for approval — the workflow routes automatically based on spend amount
-9. Track status under "My Requisitions"
-Note: The vendor MUST already be in Oracle. If not, request vendor setup first.
+A few important rules that apply at every level:
+<ul>
+<li>Budget approval must exist <strong>before</strong> any purchase commitment is made</li>
+<li>You cannot split a purchase into smaller transactions to stay under your threshold — that's a policy violation</li>
+<li>Capital expenditures (CapEx) follow a separate approval track regardless of dollar amount</li>
+<li>All software and technology purchases require IT Security review before commitment</li>
+</ul>`,
+    followups: ['What needs a formal contract?', 'When does IT Security need to review a purchase?', 'What are capital expenditure rules?']
+  },
 
-VENDOR SETUP & ONBOARDING:
-- Contact: Benjamin Quinn at vendoradmin@cspire.com
-- New vendors must complete the C Spire Vendor Registration form
-- Vendors must provide W-9 (domestic) or W-8BEN (foreign)
-- Insurance certificates required for service vendors
-- Vendor setup takes 3–5 business days
-- Do not commit to a vendor until they are fully set up in Oracle
+  // ── ORACLE FUSION / PURCHASE REQUISITION ──
+  {
+    id: 'oracle',
+    triggers: ['oracle','fusion','requisition','pr ','create a pr','create pr','purchase req','how do i order','how to order','submit a request','procurement system','pr step','requisition step'],
+    title: 'Creating a Purchase Requisition in Oracle Fusion',
+    answer: `Here are the steps to create a Purchase Requisition (PR) in Oracle Fusion:
 
-KEY CONTACTS:
-- Vendor Setup: Benjamin Quinn — vendoradmin@cspire.com
-- Accounts Payable: accountspayable@cspire.com
+<div class="step"><span class="step-num">1</span> Log into <strong>Oracle Fusion</strong></div>
+<div class="step"><span class="step-num">2</span> Navigate to <strong>Procurement → Purchase Requisitions</strong></div>
+<div class="step"><span class="step-num">3</span> Click <strong>"Create Requisition"</strong></div>
+<div class="step"><span class="step-num">4</span> Enter the <strong>description, quantity, unit price,</strong> and required date</div>
+<div class="step"><span class="step-num">5</span> Select the correct <strong>cost center and budget account</strong></div>
+<div class="step"><span class="step-num">6</span> Search for and select an <strong>approved vendor</strong> from the supplier list</div>
+<div class="step"><span class="step-num">7</span> <strong>Attach supporting documents</strong> — quotes, justification, or SOW as applicable</div>
+<div class="step"><span class="step-num">8</span> Click <strong>Submit</strong> — the workflow routes automatically based on your spend amount</div>
+<div class="step"><span class="step-num">9</span> Track your PR status under <strong>"My Requisitions"</strong></div>
 
-TONE:
-- Direct, clear, conversational — like a knowledgeable colleague
-- Plain-language answers, not policy recitation
-- Tell them what to DO next
-- Use "C Spire" (space between C and Spire, both capitalized) — never CSpire or C-Spire
-- Do not say "please" or "sorry" — speak confidently`;
+<strong>Important:</strong> The vendor must already be set up in Oracle before you can submit a PR against them. If your vendor isn't in the system yet, request vendor setup first — that takes 3–5 business days.`,
+    followups: ['What if my vendor isn\'t in Oracle yet?', 'How long does PR approval take?', 'What documents do I attach to a PR?']
+  },
 
-let history = [];
-let busy = false;
-let pendingMessage = null;
+  // ── VENDOR SETUP ──
+  {
+    id: 'vendor',
+    triggers: ['vendor','supplier','new vendor','add a vendor','vendor setup','vendor onboard','set up a vendor','register a vendor','vendor registration','vendor change','vendor info','w-9','w9','w-8','insurance certificate'],
+    title: 'New Vendor Setup',
+    answer: `Before you can create a PO or PR against any vendor, they must be set up in Oracle Fusion. Here's how that works:
 
-function openChat(msg) {
-  pendingMessage = msg;
+<strong>Who to contact:</strong> Reach out to <strong>Benjamin Quinn</strong> at <a href="mailto:vendoradmin@cspire.com" style="color:var(--blue);">vendoradmin@cspire.com</a> to initiate vendor setup.
+
+<strong>What the vendor needs to provide:</strong>
+<ul>
+<li>Completed <strong>C Spire Vendor Registration Form</strong></li>
+<li><strong>W-9</strong> (domestic vendors) or <strong>W-8BEN</strong> (foreign vendors)</li>
+<li><strong>Certificate of Insurance</strong> — required for all service vendors</li>
+<li>ACH/banking information for payment setup</li>
+</ul>
+
+<strong>Vendor changes</strong> (address, banking info, contact updates) also route through Benjamin Quinn and require documentation from the vendor to prevent fraud.
+
+<strong>Timeline:</strong> Allow <strong>3–5 business days</strong> for setup. Plan ahead — do not commit to a vendor or begin work until they are fully active in Oracle.`,
+    followups: ['How do I create a PR once my vendor is set up?', 'What if I need to change vendor banking information?', 'How long does vendor setup take?']
+  },
+
+  // ── NO-PO NO-PAY ──
+  {
+    id: 'nopo',
+    triggers: ['no po','no-po','nopo','po required','need a po','purchase order required','invoice without','without a po','no purchase order','why do i need a po','what is no po','no pay'],
+    title: 'No-PO No-Pay Policy',
+    answer: `C Spire's <strong>No-PO No-Pay</strong> policy is straightforward: if there is no approved Purchase Order (PO) on file, the invoice will not be paid — regardless of whether the work was done or the goods were received.
+
+<strong>What this means for you as a manager:</strong>
+<ul>
+<li>A PO must be in place <strong>before</strong> work begins or goods are ordered</li>
+<li>If a vendor sends an invoice and there's no matching PO, Accounts Payable will hold it</li>
+<li>You will be responsible for either getting a retroactive PO approved or explaining the policy breach</li>
+</ul>
+
+<strong>Retroactive POs</strong> (after-the-fact) are allowed only in genuine emergencies and require VP-level approval. They are not a workaround for skipping the process.
+
+<strong>The bottom line:</strong> Always get your PR submitted and your PO issued before you commit to any vendor. This protects you, your budget, and the vendor relationship.`,
+    followups: ['What counts as an emergency purchase?', 'How do I create a Purchase Requisition?', 'My vendor already invoiced without a PO — what do I do?']
+  },
+
+  // ── EMERGENCY / SOLE SOURCE ──
+  {
+    id: 'emergency',
+    triggers: ['emergency','urgent','sole source','sole-source','single vendor','one vendor','only vendor','no other vendor','exception','waiver','bypass','skip the process','need it now','asap','immediate','can\'t wait'],
+    title: 'Emergency & Sole Source Purchases',
+    answer: `<strong>Emergency Purchases</strong>
+
+If a situation genuinely can't wait for the normal PR process, you can proceed — but these rules still apply:
+<ul>
+<li>Get verbal or email authorization from your VP or above <strong>before</strong> committing</li>
+<li>Create the PO in Oracle Fusion within <strong>24 hours</strong> after the purchase</li>
+<li>Document why it was an emergency and attach that justification to the PO</li>
+</ul>
+
+<strong>Sole Source Purchases</strong> (only one vendor can do the job)
+
+When competition isn't possible, you need:
+<ul>
+<li>A written <strong>Sole Source Justification</strong> explaining why no other vendor qualifies</li>
+<li><strong>VP-level approval</strong> or above before proceeding</li>
+<li>The justification must be attached in Oracle with the PR/PO</li>
+</ul>
+
+Both emergency and sole source situations should be the exception, not the routine. Frequent requests for either will be flagged for review.`,
+    followups: ['What are the normal competitive bidding requirements?', 'How do I submit a PR after the fact?', 'Who approves a sole source justification?']
+  },
+
+  // ── CONTRACTS & LEGAL ──
+  {
+    id: 'contracts',
+    triggers: ['contract','legal','legal review','agreement','statement of work','sow','msa','master service','nda','non-disclosure','review contract','sign a contract','contract review','$25','25000','25k'],
+    title: 'Contracts & Legal Review',
+    answer: `Any contract or agreement $25,000 or more requires <strong>Legal review before anyone signs</strong>.
+
+<strong>When Legal review is required:</strong>
+<ul>
+<li>Any vendor contract, MSA, SOW, or amendment valued at <strong>$25,000+</strong></li>
+<li>Non-disclosure agreements (NDAs) with new vendors or partners</li>
+<li>Any agreement that modifies payment terms, liability, or intellectual property rights</li>
+<li>Software license agreements (also require IT Security review)</li>
+</ul>
+
+<strong>How to get Legal involved:</strong> Contact your VP to initiate the Legal review process. Do not sign anything while it is under review.
+
+<strong>For contracts under $25,000:</strong> Standard purchase orders typically serve as the contract. However, if the vendor provides their own contract terms, Legal should still review before you agree to them — vendor paper often contains terms that conflict with C Spire's policies.`,
+    followups: ['What approval level is needed for a $25K+ purchase?', 'Do software purchases need any special review?', 'Who do I contact to start a Legal review?']
+  },
+
+  // ── COMPETITIVE BIDDING ──
+  {
+    id: 'bidding',
+    triggers: ['bid','quote','3 quote','three quote','rfp','rfq','competitive','multiple vendor','compare vendor','solicitation','proposal','request for proposal','request for quote','bidding','$10,000','10k','$50,000','50k'],
+    title: 'Competitive Bidding Requirements',
+    answer: `C Spire requires competitive bids to ensure fair pricing and responsible spending. Here are the thresholds:
+
+<ul>
+<li><strong>Under $10,000:</strong> No formal bidding required, though best-value selection is still expected</li>
+<li><strong>$10,000 – $50,000:</strong> Minimum of <strong>3 written quotes</strong> required before awarding</li>
+<li><strong>Above $50,000:</strong> Formal <strong>RFP (Request for Proposal)</strong> or <strong>RFQ (Request for Quote)</strong> process required</li>
+</ul>
+
+<strong>Attach all quotes to your PR in Oracle Fusion</strong> before submitting for approval.
+
+If only one vendor can fulfill the requirement, you'll need a <strong>Sole Source Justification</strong> approved at VP level or above to waive the competitive bidding requirement.
+
+<strong>Do not pre-select a vendor</strong> before the bidding process is complete — that undermines the integrity of procurement and is a policy violation.`,
+    followups: ['What is a sole source justification?', 'How do I attach quotes to a PR in Oracle?', 'What happens above $50,000?']
+  },
+
+  // ── IT / SOFTWARE / TECHNOLOGY ──
+  {
+    id: 'technology',
+    triggers: ['software','technology','tech','it review','it security','saas','subscription','app','application','digital','cloud','system','license','tool','platform','it approval'],
+    title: 'Technology & Software Purchases',
+    answer: `All software, technology, and SaaS purchases — regardless of dollar amount — require <strong>IT Security review before commitment</strong>.
+
+<strong>Why this matters:</strong> Any software that accesses C Spire data, systems, or networks must be vetted for security compliance. This includes free tools, trial subscriptions, and one-time purchases.
+
+<strong>The process:</strong>
+<ul>
+<li>Contact your department's IT liaison or submit through the IT request process before creating your PR</li>
+<li>Once IT Security approves, attach their sign-off to your PR in Oracle Fusion</li>
+<li>If the software involves a contract or license agreement $25K+, Legal review is also required</li>
+</ul>
+
+<strong>Do not sign up for or install any software</strong> using company credentials or connecting to C Spire systems until IT Security has reviewed and approved it.`,
+    followups: ['What if it\'s a free tool or trial?', 'Does the contract need Legal review too?', 'How do I submit a PR for software?']
+  },
+
+  // ── CAPITAL EXPENDITURES ──
+  {
+    id: 'capex',
+    triggers: ['capital','capex','cap ex','capital expenditure','asset','fixed asset','equipment','depreciat','property','infrastructure','capitalized'],
+    title: 'Capital Expenditure (CapEx) Purchases',
+    answer: `Capital expenditures — purchases of assets that will be depreciated over time (equipment, infrastructure, property, etc.) — follow a <strong>separate approval track</strong> from standard operating expenses.
+
+<strong>Key rules for CapEx:</strong>
+<ul>
+<li>CapEx must be included in the <strong>annual budget process</strong> — unbudgeted capital items require additional justification and approval</li>
+<li>Approval requirements go above and beyond the standard dollar thresholds in the CAP — contact your Finance business partner early</li>
+<li>All CapEx purchases still require a PR and PO in Oracle Fusion</li>
+<li>Work with your Finance team to determine whether an item qualifies as CapEx vs. an operating expense before submitting</li>
+</ul>
+
+When in doubt about whether something is CapEx or OpEx, ask your Finance business partner before creating the requisition. Misclassification affects the budget and financial reporting.`,
+    followups: ['What are the normal spend approval thresholds?', 'How do I create a PR in Oracle?', 'Who is my Finance business partner?']
+  },
+
+  // ── INVOICE / PAYMENT ISSUES ──
+  {
+    id: 'invoice',
+    triggers: ['invoice','payment','pay a vendor','vendor hasn\'t been paid','haven\'t paid','unpaid','ap ','accounts payable','billing','bill','past due','overdue','payment issue','where is my payment'],
+    title: 'Invoice & Payment Questions',
+    answer: `For invoice and payment issues, <strong>Accounts Payable</strong> is your first stop.
+
+<strong>Contact:</strong> <a href="mailto:accountspayable@cspire.com" style="color:var(--blue);">accountspayable@cspire.com</a>
+
+<strong>Common situations:</strong>
+
+<strong>Invoice received but no PO exists:</strong> AP will hold it. You'll need to either get a retroactive PO approved (VP-level sign-off required) or reject the invoice and have the vendor resubmit after a PO is in place.
+
+<strong>Invoice doesn't match the PO:</strong> AP will reach out to you as the PO owner. Work with your vendor to issue a corrected invoice that matches the approved PO amount and line items.
+
+<strong>Vendor says they haven't been paid:</strong> Have them confirm the invoice was submitted to AP and reference the PO number. AP processes invoices against matching POs — missing PO numbers are the most common reason for payment delays.
+
+<strong>Payment terms:</strong> Standard C Spire payment terms are Net 30 from invoice receipt unless a different term is in the vendor contract.`,
+    followups: ['What is the No-PO No-Pay policy?', 'How do I get a retroactive PO approved?', 'How do I contact Accounts Payable?']
+  },
+
+  // ── CONTACTS / WHO TO CALL ──
+  {
+    id: 'contacts',
+    triggers: ['who do i contact','who should i call','who to call','who handles','who is responsible','contact','reach out','email','phone','escalate','help me','not sure what to do','confused','don\'t know','point of contact','poc'],
+    title: 'Who to Contact',
+    answer: `Here are the right contacts for procurement-related questions at C Spire:
+
+<strong>Vendor Setup & Changes</strong><br>
+Benjamin Quinn — <a href="mailto:vendoradmin@cspire.com" style="color:var(--blue);">vendoradmin@cspire.com</a><br>
+New vendors, vendor info changes, W-9 updates
+
+<strong>Accounts Payable & Invoice Questions</strong><br>
+<a href="mailto:accountspayable@cspire.com" style="color:var(--blue);">accountspayable@cspire.com</a><br>
+Payment status, invoice holds, payment terms
+
+<strong>Contract & Legal Review</strong><br>
+Contact your VP to initiate — they route to Legal
+
+<strong>IT Security Review (for software/technology)</strong><br>
+Submit through your department's IT liaison or IT request process
+
+<strong>Capital Expenditure Guidance</strong><br>
+Contact your Finance business partner
+
+<strong>General Procurement Policy Questions</strong><br>
+Contact your department's procurement coordinator or route through your direct manager`,
+    followups: ['How do I set up a new vendor?', 'What are the approval thresholds?', 'How do I create a PR in Oracle?']
+  },
+
+  // ── BUDGET ──
+  {
+    id: 'budget',
+    triggers: ['budget','budgeted','unbudgeted','over budget','budget approval','budget code','cost center','account code','gl code','fund','funding','budget impact'],
+    title: 'Budget & Cost Center Requirements',
+    answer: `Every purchase requires <strong>budget approval before commitment</strong> — meaning the funds must exist in your approved budget before you create a PR.
+
+<strong>What you need when creating a PR:</strong>
+<ul>
+<li>The correct <strong>cost center</strong> for your department</li>
+<li>The correct <strong>budget account / GL code</strong> for the type of purchase</li>
+<li>Confirmation that budget is available — Oracle Fusion will validate this during the approval workflow</li>
+</ul>
+
+<strong>Unbudgeted purchases</strong> require additional justification and approval beyond the standard CAP thresholds. For unbudgeted items, work with your Finance business partner before submitting the PR.
+
+<strong>Do not assume budget availability</strong> — check with your Finance team or budget report before committing to vendors. Committing without budget is a policy violation even if the amount is within your approval authority.`,
+    followups: ['What are the spend approval thresholds?', 'How do I create a PR in Oracle?', 'Who handles capital expenditures?']
+  },
+
+  // ── CATCH-ALL / GENERAL ──
+  {
+    id: 'general',
+    triggers: ['__fallback__'],
+    title: 'Procurement Policy Overview',
+    answer: `Here's a quick summary of the key rules that govern purchasing at C Spire:
+
+<strong>Before you buy anything:</strong>
+<ul>
+<li>Confirm budget exists in your cost center</li>
+<li>Make sure the vendor is set up in Oracle Fusion</li>
+<li>Create a Purchase Requisition (PR) in Oracle — <em>before</em> committing</li>
+<li>Get the appropriate approval based on the dollar amount</li>
+</ul>
+
+<strong>Spend authority at a glance:</strong> Manager ($2,500) → Director ($10K) → VP ($25K) → SVP/EVP ($100K) → C-Suite (above $100K)
+
+<strong>Key rules to remember:</strong>
+<ul>
+<li>No PO = No payment (invoices without a PO are held)</li>
+<li>3 quotes required for $10K–$50K; formal RFP for $50K+</li>
+<li>All software needs IT Security review</li>
+<li>Contracts $25K+ need Legal review</li>
+<li>New vendors take 3–5 days to set up — plan ahead</li>
+</ul>
+
+Try one of the topic buttons, or ask me about a specific situation.`,
+    followups: ['What are the approval thresholds?', 'How do I create a PR in Oracle?', 'How do I set up a new vendor?']
+  }
+
+];
+
+// ─────────────────────────────────────────────
+//  ANSWER ENGINE
+// ─────────────────────────────────────────────
+
+function findAnswer(query) {
+  const q = query.toLowerCase();
+
+  // Score each KB entry
+  let best = null;
+  let bestScore = 0;
+
+  for (const entry of KB) {
+    if (entry.id === 'general') continue;
+    let score = 0;
+    for (const trigger of entry.triggers) {
+      if (q.includes(trigger)) {
+        // Longer trigger = more specific match = higher score
+        score += trigger.length;
+      }
+    }
+    if (score > bestScore) {
+      bestScore = score;
+      best = entry;
+    }
+  }
+
+  // Return best match if score is meaningful, else fallback
+  if (best && bestScore >= 3) return best;
+
+  // Fallback: general overview
+  return KB.find(e => e.id === 'general');
+}
+
+// ─────────────────────────────────────────────
+//  UI LOGIC
+// ─────────────────────────────────────────────
+
+function openChat(query) {
   document.getElementById('chatOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
-  if (msg) {
+  if (query) {
+    // Small delay so overlay is visible first
     setTimeout(() => {
-      document.getElementById('chatInput').value = msg;
+      document.getElementById('chatInput').value = query;
       sendMessage();
     }, 200);
   } else {
-    document.getElementById('chatInput').focus();
+    setTimeout(() => document.getElementById('chatInput').focus(), 300);
   }
 }
 
 function focusChatInput() {
   openChat(null);
-  setTimeout(() => document.getElementById('chatInput').focus(), 300);
 }
 
 function closeChat() {
@@ -818,108 +1029,93 @@ function handleKey(e) {
   }
 }
 
-async function sendMessage() {
-  if (busy) return;
+function sendMessage() {
   const input = document.getElementById('chatInput');
   const text = input.value.trim();
   if (!text) return;
 
   input.value = '';
   input.style.height = 'auto';
-  document.getElementById('sendBtn').disabled = true;
-  busy = true;
 
-  addMsg('user', text);
-  history.push({ role: 'user', content: text });
+  addUserMsg(text);
 
+  // Simulate brief thinking delay for natural feel
   const typing = addTyping();
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: SYSTEM_PROMPT,
-        messages: history
-      })
-    });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Something went wrong. Try again.';
+  setTimeout(() => {
     typing.remove();
-    history.push({ role: 'assistant', content: reply });
-    addMsg('agent', reply);
-  } catch {
-    typing.remove();
-    addMsg('agent', 'Something went wrong. Try again or contact your procurement coordinator directly.');
-  }
-
-  busy = false;
-  document.getElementById('sendBtn').disabled = false;
-  document.getElementById('chatInput').focus();
+    const result = findAnswer(text);
+    addAgentMsg(result);
+  }, 400 + Math.random() * 300);
 }
 
-function addMsg(role, text) {
+function addUserMsg(text) {
   const msgs = document.getElementById('messages');
   const el = document.createElement('div');
-  el.className = `msg ${role}`;
-
-  const av = document.createElement('div');
-  av.className = 'av';
-  av.textContent = role === 'agent' ? '★' : 'M';
-
-  const bub = document.createElement('div');
-  bub.className = 'bub';
-  const formatted = text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/\n/g, '<br>');
-  bub.innerHTML = `<p>${formatted}</p>`;
-
-  if (role === 'agent') {
-    const chips = getSuggestedChips(text);
-    if (chips.length) {
-      const row = document.createElement('div');
-      row.className = 'chip-row';
-      chips.forEach(c => {
-        const ch = document.createElement('button');
-        ch.className = 'followchip';
-        ch.textContent = c;
-        ch.onclick = () => {
-          document.getElementById('chatInput').value = c;
-          sendMessage();
-        };
-        row.appendChild(ch);
-      });
-      bub.appendChild(row);
-    }
-  }
-
-  el.appendChild(av);
-  el.appendChild(bub);
+  el.className = 'msg user';
+  el.innerHTML = `
+    <div class="av" style="background:rgba(255,103,32,0.15);border:1px solid rgba(255,103,32,0.3);color:var(--orange);">M</div>
+    <div class="bub"><p>${escapeHtml(text)}</p></div>`;
   msgs.appendChild(el);
   msgs.scrollTop = msgs.scrollHeight;
 }
 
-function getSuggestedChips(text) {
-  const t = text.toLowerCase();
-  if (t.includes('oracle') || t.includes('requisition')) return ['What if my vendor isn\'t in Oracle?', 'How long for PR approval?'];
-  if (t.includes('vendor') || t.includes('supplier')) return ['How long does setup take?', 'What documents are needed?'];
-  if (t.includes('approv') || t.includes('threshold') || t.includes('limit')) return ['What needs Legal review?', 'Who signs capital expenses?'];
-  if (t.includes('po') || t.includes('purchase order')) return ['How do I create a PO?', 'Invoice with no PO — what now?'];
-  return ['What else should I know?', 'Who do I contact about this?'];
+function addAgentMsg(entry) {
+  const msgs = document.getElementById('messages');
+  const el = document.createElement('div');
+  el.className = 'msg agent';
+
+  const bub = document.createElement('div');
+  bub.className = 'bub';
+  bub.innerHTML = entry.answer;
+
+  // Add contact box for relevant entries
+  if (['vendor','contacts','invoice'].includes(entry.id)) {
+    const cb = document.createElement('div');
+    cb.className = 'contact-box';
+    cb.innerHTML = `<div class="contact-box-title">Direct Contacts</div>
+      <strong>Vendor Setup:</strong> Benjamin Quinn — <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a><br>
+      <strong>Accounts Payable:</strong> <a href="mailto:accountspayable@cspire.com">accountspayable@cspire.com</a>`;
+    bub.appendChild(cb);
+  }
+
+  // Follow-up chips
+  if (entry.followups && entry.followups.length) {
+    const row = document.createElement('div');
+    row.className = 'chip-row';
+    entry.followups.forEach(f => {
+      const ch = document.createElement('button');
+      ch.className = 'followchip';
+      ch.textContent = f;
+      ch.onclick = () => {
+        document.getElementById('chatInput').value = f;
+        sendMessage();
+      };
+      row.appendChild(ch);
+    });
+    bub.appendChild(row);
+  }
+
+  el.innerHTML = `<div class="av" style="background:linear-gradient(135deg,var(--blue),var(--steel));color:white;">★</div>`;
+  el.appendChild(bub);
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+  document.getElementById('chatInput').focus();
 }
 
 function addTyping() {
   const msgs = document.getElementById('messages');
   const el = document.createElement('div');
   el.className = 'typing-row';
-  el.innerHTML = `<div class="av" style="background:linear-gradient(135deg,#00c0f3,#0f3d58);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;width:36px;height:36px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">★</div>
+  el.innerHTML = `
+    <div class="av" style="background:linear-gradient(135deg,var(--blue),var(--steel));color:white;">★</div>
     <div class="typing-bub"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
   msgs.appendChild(el);
   msgs.scrollTop = msgs.scrollHeight;
   return el;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
 </body>
