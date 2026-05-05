@@ -1675,13 +1675,11 @@ function sendMessage() {
   addUserMsg(text);
   const typEl = addTyping();
 
-  setTimeout(()=>{
+  setTimeout(function() {
     typEl.remove();
     const result = getAnswer(text);
+    // addAgentMsg handles typewriting and re-enables busy/button when done
     addAgentMsg(result.html, result.chips);
-    busy=false;
-    document.getElementById("sendBtn").disabled=false;
-    document.getElementById("chatInput").focus();
   }, 3000);
 }
 
@@ -1698,77 +1696,169 @@ function addUserMsg(text) {
   el.appendChild(av);
   el.appendChild(bub);
   msgs.appendChild(el);
-  scrollDown();
+  // Scroll so the user message is visible at top of the view
+  scrollToEl(el);
+}
+
+// ── TYPEWRITER ENGINE ──
+// Renders HTML incrementally so the response appears to be typed out.
+// Strategy: parse the full HTML into a flat list of tokens (text chars + HTML tags),
+// then insert them one by one into a live DOM node at speed.
+
+function tokeniseHTML(html) {
+  // Split into: full HTML tags (<...>) and individual text characters
+  var tokens = [];
+  var re = /(<[^>]+>)|([^<])/g;
+  var m;
+  while ((m = re.exec(html)) !== null) {
+    tokens.push(m[0]);
+  }
+  return tokens;
 }
 
 function addAgentMsg(html, chips) {
-  const msgs = document.getElementById("messages");
-  // Outer row
-  const row = document.createElement("div");
+  var msgs = document.getElementById("messages");
+
+  // Build the row structure
+  var row = document.createElement("div");
   row.className = "msg agent";
-  // Avatar
-  const av = document.createElement("div");
+
+  var av = document.createElement("div");
   av.className = "av";
   av.textContent = "CS";
-  // Bubble
-  const bub = document.createElement("div");
+
+  var bub = document.createElement("div");
   bub.className = "bub";
-  bub.innerHTML = html;
-  // Chips — built via DOM, NO innerHTML attribute injection
-  if (chips && chips.length) {
-    const chipRow = document.createElement("div");
-    chipRow.className = "chip-row";
-    chips.forEach(function(chipText) {
-      const btn = document.createElement("button");
-      btn.className = "followchip";
-      btn.textContent = chipText;
-      btn.addEventListener("click", function() {
-        sendQuestion(chipText);
-      });
-      chipRow.appendChild(btn);
-    });
-    bub.appendChild(chipRow);
-  }
+
+  // Typing cursor
+  var cursor = document.createElement("span");
+  cursor.className = "type-cursor";
+  cursor.textContent = "|";
+
   row.appendChild(av);
   row.appendChild(bub);
   msgs.appendChild(row);
-  scrollDown();
+
+  // Scroll so the TOP of the new message is in view — not the bottom
+  scrollToEl(row);
+
+  // Tokenise the full HTML and stream it in
+  var tokens = tokeniseHTML(html);
+  var idx = 0;
+  // ~18ms per token = ~55 tokens/sec — fast enough to feel instant, slow enough to read
+  var DELAY = 18;
+
+  function tick() {
+    if (idx >= tokens.length) {
+      // Typewriting done — remove cursor, append chips
+      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+      if (chips && chips.length) {
+        var chipRow = document.createElement("div");
+        chipRow.className = "chip-row";
+        chips.forEach(function(chipText) {
+          var btn = document.createElement("button");
+          btn.className = "followchip";
+          btn.textContent = chipText;
+          btn.addEventListener("click", function() { sendQuestion(chipText); });
+          chipRow.appendChild(btn);
+        });
+        bub.appendChild(chipRow);
+      }
+      // Re-enable input once typing is done
+      document.getElementById("sendBtn").disabled = false;
+      busy = false;
+      document.getElementById("chatInput").focus();
+      return;
+    }
+
+    var token = tokens[idx];
+    idx++;
+
+    if (token.charAt(0) === "<") {
+      // It's an HTML tag — insert all at once, no delay for tags
+      // Use a temporary wrapper to parse it safely
+      var tmp = document.createElement("div");
+      // Append accumulated HTML so far + this tag to bub
+      // We maintain bub.innerHTML directly for tag tokens
+      // Remove cursor, inject tag, re-add cursor
+      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+      bub.innerHTML += token;
+      bub.appendChild(cursor);
+      tick(); // tags are instant — call synchronously to avoid flicker
+    } else {
+      // It's a text character — insert with delay
+      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+      // Find the deepest last text-capable element and append there
+      var target = deepestLast(bub) || bub;
+      target.appendChild(document.createTextNode(token));
+      bub.appendChild(cursor);
+      setTimeout(tick, DELAY);
+    }
+  }
+
+  tick();
+}
+
+// Walk to the deepest last child that can hold text nodes
+function deepestLast(el) {
+  var last = el;
+  while (last.lastChild && last.lastChild.nodeType === 1) {
+    last = last.lastChild;
+  }
+  return last === el ? null : last;
 }
 
 // sendQuestion: safe entry point for chip clicks and programmatic sends
 function sendQuestion(q) {
-  const inp = document.getElementById("chatInput");
+  var inp = document.getElementById("chatInput");
   inp.value = q;
   sendMessage();
 }
 
 function addTyping() {
-  const msgs = document.getElementById("messages");
-  const row = document.createElement("div");
+  var msgs = document.getElementById("messages");
+  var row = document.createElement("div");
   row.className = "typing-row";
   row.id = "typingIndicator";
-  const av = document.createElement("div");
+  var av = document.createElement("div");
   av.className = "av";
   av.style.cssText = "background:var(--steel);color:var(--blue);font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;";
   av.textContent = "CS";
-  const bub = document.createElement("div");
+  var bub = document.createElement("div");
   bub.className = "typing-bub";
   ["dot","dot","dot"].forEach(function() {
-    const d = document.createElement("div");
+    var d = document.createElement("div");
     d.className = "dot";
     bub.appendChild(d);
   });
   row.appendChild(av);
   row.appendChild(bub);
   msgs.appendChild(row);
-  scrollDown();
+  scrollToEl(row);
   return row;
 }
 
-function scrollDown() {
-  const w = document.getElementById("messagesWrap");
-  setTimeout(function() { w.scrollTop = w.scrollHeight; }, 50);
+// Scroll the messages pane so the TOP of el is visible at the top of the viewport
+function scrollToEl(el) {
+  setTimeout(function() {
+    var wrap = document.getElementById("messagesWrap");
+    var wrapRect = wrap.getBoundingClientRect();
+    var elRect = el.getBoundingClientRect();
+    // Offset of el relative to the scroll container
+    var elTop = elRect.top - wrapRect.top + wrap.scrollTop;
+    // Add a small top margin so it doesn't feel jammed against the edge
+    wrap.scrollTop = elTop - 20;
+  }, 40);
 }
+
+// Typewriter cursor styling — injected once
+(function() {
+  var s = document.createElement("style");
+  s.textContent = ".type-cursor{display:inline-block;color:var(--cool);font-weight:300;animation:cursorBlink 0.7s step-end infinite;margin-left:1px;}.@keyframes cursorBlink{0%,100%{opacity:1;}50%{opacity:0;}}";
+  // Fix the @ in keyframes (was escaped in string concat)
+  s.textContent = ".type-cursor{display:inline-block;color:var(--cool);font-weight:300;animation:cursorBlink 0.7s step-end infinite;margin-left:1px;}@keyframes cursorBlink{0%,100%{opacity:1;}50%{opacity:0;}}";
+  document.head.appendChild(s);
+}());
 </script>
 </body>
 </html>
