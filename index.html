@@ -695,7 +695,7 @@
   </div>
 
   <div class="overlay-contacts">
-    <span class="oc-item">Vendor Setup: <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a> (Benjamin Quinn)</span>
+    <span class="oc-item">Vendor Setup: <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a></span>
     <span class="oc-item" style="margin-left:12px;">AP: <a href="mailto:accountspayable@cspire.com">accountspayable@cspire.com</a></span>
   </div>
 
@@ -847,7 +847,7 @@ const KB = [
 </ul>
 <p><strong>A new W-9 is also required for:</strong> name change, address change, business entity change, or if the vendor has been inactive for more than 2 years.</p>
 <p>Payment terms for all vendors: <strong>NET 30 days from receipt of invoice</strong>. Payment options: PNC Bank Visa Virtual Card (preferred), Paymode-X, or check.</p>
-<p>Contact: <strong><a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a></strong> — Benjamin Quinn, 601-707-3387</p>
+<p>Contact: <strong><a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a></strong></p>
 <span class="ref-tag">Vendor Policy Rev. 11.08.2022 · CSI Vendor Welcome Packet</span>
 <div class="doc-hint" onclick="openDrawer()">📄 <span>Download the Vendor Welcome Packet</span> — includes the setup form</div>`
   },
@@ -1129,6 +1129,7 @@ Enrollment: <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a></
   <li>Over $10M — CEO or CFO</li>
 </ul>
 <p><strong>The extra step:</strong> Any agreement related to C Spire's IT systems, network equipment, software, or AI must follow the Software Procurement Policy <em>and</em> be reviewed and approved by the <strong>CISO before the contract is executed</strong> — regardless of dollar amount. This isn't optional and it applies to SaaS, AI, and any software agreement without exception.</p>
+<p><strong>Submit a software procurement request:</strong> Use the <a href="https://cspire.service-now.com/sp?id=sc_cat_item&sys_id=36f4330c1bd43e10c56eea45604bcbd4&sysparm_category=62ee98e51b58b650c56eea45604bcb40" target="_blank" rel="noopener">Software Procurement Request Form in ServiceNow</a> to initiate the review process for any software, SaaS, or AI tool purchase.</p>
 <span class="ref-tag">Corporate Authorization Policy §III(n) · CAP Approval Matrix, May 2026</span>
 <div class="doc-hint" onclick="openDrawer()">📄 <span>Download the Corporate Authorization Policy</span> — full approval matrix</div>`
   },
@@ -1161,10 +1162,10 @@ Enrollment: <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a></
     keys:["contact","who do i contact","who to call","who to email","procurement help","procurement question","who handles","reach out","get help","need help","not sure what","figure out"],
     topic:"contact",
     chips:["What is the procurement process?","How do I submit an Oracle requisition?"],
-    body:`<p><strong>Vendor setup or changes:</strong><br>Benjamin Quinn — <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a> — 601-707-3387</p>
+    body:`<p><strong>Vendor setup or changes:</strong><br><a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a></p>
 <p><strong>Invoice or AP questions:</strong><br><a href="mailto:accountspayable@cspire.com">accountspayable@cspire.com</a></p>
 <p><strong>Procurement policy questions or escalations:</strong><br>Contact the Controller or CFO, or your Procurement department directly.</p>
-<p><strong>IT or software purchases:</strong><br>Route through the CISO before executing any agreement.</p>
+<p><strong>IT or software purchases:</strong><br>Route through the CISO before executing any agreement.<br>→ <a href="https://cspire.service-now.com/sp?id=sc_cat_item&sys_id=36f4330c1bd43e10c56eea45604bcbd4&sysparm_category=62ee98e51b58b650c56eea45604bcb40" target="_blank" rel="noopener">Software Procurement Request Form (ServiceNow)</a><br>→ <a href="https://www.cspire.net/departments/cybersecurity/home" target="_blank" rel="noopener">CISO / Cybersecurity Support Page</a></p>
 <span class="ref-tag">Vendor Policy · CAP May 2026</span>`
   },
   {
@@ -1324,7 +1325,8 @@ Enrollment: <a href="mailto:vendoradmin@cspire.com">vendoradmin@cspire.com</a></
   <li>Data handling and storage practices</li>
 </ul>
 <p><strong>What you need to do:</strong> Before executing any software or IT agreement, route it through the CISO for review and approval. Do not sign or commit until CISO approval is documented. Engage the CISO early — ideally before contract negotiation is complete, not after.</p>
-<p>Contact your IT Security team or Procurement for the current CISO routing process.</p>
+<p><strong>CISO support and questions:</strong> Visit the <a href="https://www.cspire.net/departments/cybersecurity/home" target="_blank" rel="noopener">C Spire Cybersecurity department page</a> for CISO resources, support, and to initiate a review.</p>
+<p><strong>Starting a software purchase?</strong> Use the <a href="https://cspire.service-now.com/sp?id=sc_cat_item&sys_id=36f4330c1bd43e10c56eea45604bcbd4&sysparm_category=62ee98e51b58b650c56eea45604bcb40" target="_blank" rel="noopener">Software Procurement Request Form in ServiceNow</a>.</p>
 <span class="ref-tag">Corporate Authorization Policy §III(n) · Procurement Policy §6</span>`
   },
   {
@@ -1678,7 +1680,6 @@ function sendMessage() {
   setTimeout(function() {
     typEl.remove();
     const result = getAnswer(text);
-    // addAgentMsg handles typewriting and re-enables busy/button when done
     addAgentMsg(result.html, result.chips);
   }, 3000);
 }
@@ -1696,138 +1697,59 @@ function addUserMsg(text) {
   el.appendChild(av);
   el.appendChild(bub);
   msgs.appendChild(el);
-  // Scroll so the user message is visible at top of the view
   scrollToEl(el);
 }
 
-// ── TYPEWRITER ENGINE ──
-// Renders HTML incrementally so the response appears to be typed out.
-// Strategy: parse the full HTML into a flat list of tokens (text chars + HTML tags),
-// then insert them one by one into a live DOM node at speed.
-
-function tokeniseHTML(html) {
-  // Split into: full HTML tags (<...>) and individual text characters
-  var tokens = [];
-  var re = /(<[^>]+>)|([^<])/g;
-  var m;
-  while ((m = re.exec(html)) !== null) {
-    tokens.push(m[0]);
-  }
-  return tokens;
-}
-
 function addAgentMsg(html, chips) {
-  var msgs = document.getElementById("messages");
-
-  // Build the row structure
-  var row = document.createElement("div");
+  const msgs = document.getElementById("messages");
+  const row = document.createElement("div");
   row.className = "msg agent";
-
-  var av = document.createElement("div");
+  const av = document.createElement("div");
   av.className = "av";
   av.textContent = "CS";
-
-  var bub = document.createElement("div");
+  const bub = document.createElement("div");
   bub.className = "bub";
-
-  // Typing cursor
-  var cursor = document.createElement("span");
-  cursor.className = "type-cursor";
-  cursor.textContent = "|";
-
+  bub.innerHTML = html;
+  if (chips && chips.length) {
+    const chipRow = document.createElement("div");
+    chipRow.className = "chip-row";
+    chips.forEach(function(chipText) {
+      const btn = document.createElement("button");
+      btn.className = "followchip";
+      btn.textContent = chipText;
+      btn.addEventListener("click", function() { sendQuestion(chipText); });
+      chipRow.appendChild(btn);
+    });
+    bub.appendChild(chipRow);
+  }
   row.appendChild(av);
   row.appendChild(bub);
   msgs.appendChild(row);
-
-  // Scroll so the TOP of the new message is in view — not the bottom
   scrollToEl(row);
-
-  // Tokenise the full HTML and stream it in
-  var tokens = tokeniseHTML(html);
-  var idx = 0;
-  // ~18ms per token = ~55 tokens/sec — fast enough to feel instant, slow enough to read
-  var DELAY = 18;
-
-  function tick() {
-    if (idx >= tokens.length) {
-      // Typewriting done — remove cursor, append chips
-      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
-      if (chips && chips.length) {
-        var chipRow = document.createElement("div");
-        chipRow.className = "chip-row";
-        chips.forEach(function(chipText) {
-          var btn = document.createElement("button");
-          btn.className = "followchip";
-          btn.textContent = chipText;
-          btn.addEventListener("click", function() { sendQuestion(chipText); });
-          chipRow.appendChild(btn);
-        });
-        bub.appendChild(chipRow);
-      }
-      // Re-enable input once typing is done
-      document.getElementById("sendBtn").disabled = false;
-      busy = false;
-      document.getElementById("chatInput").focus();
-      return;
-    }
-
-    var token = tokens[idx];
-    idx++;
-
-    if (token.charAt(0) === "<") {
-      // It's an HTML tag — insert all at once, no delay for tags
-      // Use a temporary wrapper to parse it safely
-      var tmp = document.createElement("div");
-      // Append accumulated HTML so far + this tag to bub
-      // We maintain bub.innerHTML directly for tag tokens
-      // Remove cursor, inject tag, re-add cursor
-      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
-      bub.innerHTML += token;
-      bub.appendChild(cursor);
-      tick(); // tags are instant — call synchronously to avoid flicker
-    } else {
-      // It's a text character — insert with delay
-      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
-      // Find the deepest last text-capable element and append there
-      var target = deepestLast(bub) || bub;
-      target.appendChild(document.createTextNode(token));
-      bub.appendChild(cursor);
-      setTimeout(tick, DELAY);
-    }
-  }
-
-  tick();
+  busy = false;
+  document.getElementById("sendBtn").disabled = false;
+  document.getElementById("chatInput").focus();
 }
 
-// Walk to the deepest last child that can hold text nodes
-function deepestLast(el) {
-  var last = el;
-  while (last.lastChild && last.lastChild.nodeType === 1) {
-    last = last.lastChild;
-  }
-  return last === el ? null : last;
-}
-
-// sendQuestion: safe entry point for chip clicks and programmatic sends
 function sendQuestion(q) {
-  var inp = document.getElementById("chatInput");
+  const inp = document.getElementById("chatInput");
   inp.value = q;
   sendMessage();
 }
 
 function addTyping() {
-  var msgs = document.getElementById("messages");
-  var row = document.createElement("div");
+  const msgs = document.getElementById("messages");
+  const row = document.createElement("div");
   row.className = "typing-row";
   row.id = "typingIndicator";
-  var av = document.createElement("div");
+  const av = document.createElement("div");
   av.className = "av";
   av.style.cssText = "background:var(--steel);color:var(--blue);font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;";
   av.textContent = "CS";
-  var bub = document.createElement("div");
+  const bub = document.createElement("div");
   bub.className = "typing-bub";
   ["dot","dot","dot"].forEach(function() {
-    var d = document.createElement("div");
+    const d = document.createElement("div");
     d.className = "dot";
     bub.appendChild(d);
   });
@@ -1838,27 +1760,16 @@ function addTyping() {
   return row;
 }
 
-// Scroll the messages pane so the TOP of el is visible at the top of the viewport
+// Scroll so the TOP of the new element is visible at the top of the pane
 function scrollToEl(el) {
   setTimeout(function() {
-    var wrap = document.getElementById("messagesWrap");
-    var wrapRect = wrap.getBoundingClientRect();
-    var elRect = el.getBoundingClientRect();
-    // Offset of el relative to the scroll container
-    var elTop = elRect.top - wrapRect.top + wrap.scrollTop;
-    // Add a small top margin so it doesn't feel jammed against the edge
+    const wrap = document.getElementById("messagesWrap");
+    const wrapRect = wrap.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const elTop = elRect.top - wrapRect.top + wrap.scrollTop;
     wrap.scrollTop = elTop - 20;
   }, 40);
 }
-
-// Typewriter cursor styling — injected once
-(function() {
-  var s = document.createElement("style");
-  s.textContent = ".type-cursor{display:inline-block;color:var(--cool);font-weight:300;animation:cursorBlink 0.7s step-end infinite;margin-left:1px;}.@keyframes cursorBlink{0%,100%{opacity:1;}50%{opacity:0;}}";
-  // Fix the @ in keyframes (was escaped in string concat)
-  s.textContent = ".type-cursor{display:inline-block;color:var(--cool);font-weight:300;animation:cursorBlink 0.7s step-end infinite;margin-left:1px;}@keyframes cursorBlink{0%,100%{opacity:1;}50%{opacity:0;}}";
-  document.head.appendChild(s);
-}());
 </script>
 </body>
 </html>
